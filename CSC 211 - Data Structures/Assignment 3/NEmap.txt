@@ -1,0 +1,15 @@
+0  NewYork
+1  Vermont
+2  Connecticut
+3  Massachusetts
+4  NewHampshire 
+5  Maine
+6  RhodeIsland
+
+0111000
+1001100
+1001001
+1110101
+0101010
+0000100
+0011000
