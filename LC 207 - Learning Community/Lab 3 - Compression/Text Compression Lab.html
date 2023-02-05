@@ -1,0 +1,7609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0055)http://web.stonehill.edu/compsci/LC/TEXTCOMPRESSION.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+    <meta name="ProgId" content="FrontPage.Editor.Document">
+    <title>Text Compression Lab</title>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1034.0" data-gr-ext-installed="">
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="center"><font face="Times New Roman"><big><big><big><big><b><font face="Arial">Stonehill
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    College<br>
+                    Data Structures and Discrete Mathematics Learning
+                    Community</font><br>
+                </b><br>
+              </big></big></big></big><b><big><big><big><big><font face="Arial"><small>Professors Ralph Bravaco and
+                      Shai Simonson<br>
+                      Text Compression and Huffman Trees</small></font><br>
+                  <br>
+                </big></big></big></big> </b></font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><b><br>
+        </b>Consider a simple “message” (or file) which is stored as a
+        string of characters using the ASCII code.<span style="">&nbsp;
+        </span>Each character in the message requires eight bits of
+        storage.<span style="">&nbsp; </span>For example character<span style="">&nbsp; </span>“A,” (ASCII code 65)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>would be stored as 010000001, character “B” (ASCII 66)<span style="">&nbsp; </span>would bet stored as 010000010 etc.<span style="">&nbsp; </span>In fact, this very paragraph<span style="">&nbsp; </span>would require 3472 bits of storage
+        (434 characters and eight bits for each character).<span style="">&nbsp;&nbsp;</span><br>
+        <i><br>
+          Data compression </i>is a technique which reduces the size of
+        a file or data collection without affecting the information
+        contained in the file.<span style="">&nbsp; </span>A compressed
+        file, obviously, requires less storage space.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Moreover, electronic transfer of a compressed file is
+        faster than the transfer of an uncompressed file and a smaller
+        file is consequently less susceptible to transmission errors.<span style="">&nbsp;</span><br>
+        <br>
+        One of the simplest but efficient methods of data compression
+        was introduced by David Huffman in his paper ``A method for the
+        construction of minimum redundancy codes.''<span style="">&nbsp;
+        </span>Huffman’s method is very intuitive.<span style="">&nbsp;
+        </span>Unlike the ASCII code which uses <i>exactly</i> eight
+        bits to encode each character, a Huffman code uses a <i>variable</i>
+        number of bits for each character. With Huffman’s scheme, a
+        common character such as “a” or “e” might be encoded with<span style="">&nbsp; </span>perhaps just two bits and less
+        frequently used characters like “q” or “#” would be encoded with
+        a longer bit string.<span style="">&nbsp; </span>Consequently,
+        the most frequently occurring characters are encoded with a
+        minimal number of bits.<span style="">&nbsp; </span>(Morse code
+        uses the same technique, “E” is encodes as a single<span style="">&nbsp; </span>dot, “T”<span style="">&nbsp; </span>just
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        one dash,<span style="">&nbsp; </span>but “Q” is
+        dash-dash-dot-dash). Because ASCII<span style="">&nbsp; </span>encodes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        every character with eight bits we say that ASCII code is a <i>fixed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          length code.<span style="">&nbsp; </span></i>Huffman’s code
+        is a <i>variable length code.</i><br>
+        <br>
+        We’ll begin with a trivial example.<span style="">&nbsp;</span><br>
+        <br>
+        Suppose we wish to encode the string<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>“SHE-SELLS-SEA-SHELLS”<br>
+        The ASCII code would require 160 bits (20 characters each
+        requiring 8 bits).<br>
+        Notice, however, that the<span style="">&nbsp; </span>characters
+which
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        appear in the string have the following frequencies ( and
+        relative frequencies)<br>
+        A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.05<br>
+        H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.10<br>
+        -<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>3<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.15<br>
+        E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.20<br>
+        L<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.20<br>
+        S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.30<br>
+        <br>
+        A possible variable length code which uses just 2 bits to encode
+        frequently used characters like “S” or “L “ might be<span style="">&nbsp; </span>:<br>
+        <br>
+        <span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Character<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Codeword<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Frequency of Character<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 1<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 2<br>
+        <span style="">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp; </span>&nbsp;&nbsp; 3<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>10<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp; &nbsp;&nbsp; </span>4<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; L<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>11<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 4<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>01<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 6<br>
+        We will refer to this code as Code 1.<span style="">&nbsp;&nbsp;
+        </span>We will also use the term “codeword” to denote an
+        individual character code.<span style="">&nbsp; </span>Thus,
+        0000 and 001 are codewords.<br>
+        <br>
+        Notice that “S” which occurs 6 times (or 30% of the time) is
+        encoded using just 2 bits and “A” which occurs only once is
+        encoded with 4 bits.<br>
+        <br>
+        With this code, the string,<span style="">&nbsp; </span>“SHE-SELLS-SEA-SHELLS,”
+can
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        be encoded with just 49 bits:<br>
+        <br>
+        0100011000101101111010010110000000101000110111101<br>
+        <br>
+        <br>
+        <br>
+        You may wonder why we didn’t use a “more efficient” code like:<br>
+        S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0<span style="">&nbsp;&nbsp;</span><br>
+        L<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1<br>
+        E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>00<br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11<br>
+        H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>01<br>
+        A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>10<br>
+        ( Code 2)<br>
+        <br>
+        Using Code 2 we can encode the string “SHE-SELLS-SEA-SHELLS” as<br>
+        <br>
+        <span style="">&nbsp;</span>001001100011011000101101000110<br>
+        <br>
+        which uses a mere 30 bits.<span style="">&nbsp; </span>Certainly,
+compressing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the string to 30 bits is more efficient than storing it as 49
+        bits.<span style="">&nbsp; </span>So, why not use Code 2?<span style="">&nbsp; </span>It does the job with fewer bits.<span style="">&nbsp;</span><br>
+        <br>
+        To answer this question, consider just the simple substring,
+        “SHE.”<span style="">&nbsp; </span>Using<span style="">&nbsp; </span>the
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ASCII coding scheme, “SHE” is encoded<span style="">&nbsp; </span>as<br>
+        <b><br>
+          01010011</b>01001000<b>01000101</b><br>
+        <br>
+        Now, if we wish to decode (or translate this bit string back to
+        ordinary, readable<span style="">&nbsp; </span>text), we simply
+        look at each successive group of exactly 8 bits:<br>
+        01010011 -<span style="">&nbsp; </span>(83)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>– “S”<br>
+        01001000 -<span style="">&nbsp; </span>(72)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>– “H”<br>
+        01000101 -<span style="">&nbsp; </span>(69)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>– “E”<br>
+        That’s all there is to it.<br>
+        <br>
+        Now, let’s encode “SHE” using our “more efficient” Code 2:<br>
+        <br>
+        <span style="">&nbsp;</span>00100.<span style="">&nbsp;</span><br>
+        <br>
+        Wow! Just 5 bits!<span style="">&nbsp;</span><br>
+        <br>
+        Now, given this five bit string, how do we decode it?<span style="">&nbsp;&nbsp; </span>Do we decode 00100 as<span style="">&nbsp; </span>“EAS”<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>(00<span style="">&nbsp; </span>10 0)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>or<span style="">&nbsp; </span>as “ SSLE”<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>( 0 0<span style="">&nbsp; </span>1 00 ) or perhaps as
+        “SSLSS”<span style="">&nbsp; </span>(0 0<span style="">&nbsp; </span>1
+        0 0) ?<span style="">&nbsp;&nbsp; </span>You really cannot tell
+        without putting some marker between the codewords for each
+        letter.<br>
+        <br>
+        On the other hand, using Code 1 we encode “SHE” as<br>
+        <br>
+        01000110.<br>
+        <br>
+        To decode this bit string , simply<span style="">&nbsp; </span>scan
+the
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        string from left to right<span style="">&nbsp; </span>until you
+        find a complete codeword.<span style="">&nbsp; </span>You have
+        just decoded the first character.<span style="">&nbsp; </span>Continue
+the
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        process until you have scanned the entire bit string.<span style="">&nbsp; </span>You will see there is no ambiguity.<br>
+        01<span style="">&nbsp;&nbsp;&nbsp; </span>0001<span style="">&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>10<br>
+        S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>E<br>
+        <br style="page-break-before: always;" clear="all">
+        <br>
+        <b><big><big>Exercise 1.</big></big><br>
+        </b><br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>a. Decode each of the following bit strings which are
+        encoded with Code 1:<br>
+        <br>
+      </font><font face="Times New Roman"> &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        01000011001011011110100110101101</font><font face="Times New
+        Roman"><br>
+        <br>
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp; 00010000110010001000001001000110101101<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; b. Now,
+        using the following bit string, show that Code 2 is ambiguous.<span style="">&nbsp; </span>In other words, find two possible
+        translations of the following bit string:<br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; 01011100011011001000<br>
+        <br>
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c.
+        Explain why Code 1 is not ambiguous.<span style="">&nbsp; </span>What
+property
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        does Code 1 have which ensures that each bit string has a unique
+        translation?<br>
+        <br>
+        <br>
+        <br style="page-break-before: always;" clear="all">
+        <b>Prefix Codes<br>
+          <br>
+        </b>For arbitrary variable length codes, we may not be able
+        determine the end of one codeword .<span style="">&nbsp; </span>For
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        example, using Code 2, do we interpret the bit string 0101 as
+        0.10.1 (SAL) or 01.01 (HH)<span style="">&nbsp; </span>or<span style="">&nbsp; </span>0.1.0.1 (SLSL)?<span style="">&nbsp; </span>Is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the initial letter encoded as 0 (S)<span style="">&nbsp; </span>or
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        01 (H)? Without some kind of marker between codewords, it is
+        impossible to determine where each codeword ends.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Code 1 however, does not have this drawback.<span style="">&nbsp; </span>The bit string 00010000011 can have
+        only one interpretation:<br>
+        <br>
+        0001.0000.001.<br>
+        <span style="">&nbsp;</span><br>
+        <span style="">&nbsp;</span>Let’s look at this string.<span style="">&nbsp; </span>As we scan from left to right we see:<br>
+        0 is not a valid code.<span style="">&nbsp; </span>Continue
+        scanning<br>
+        00 is not a valid code. Continue<br>
+        000 is not a valid code. Continue<br>
+        0001 is the code for H. Done.<br>
+        <br>
+        OK, we have unearthed an “H.” But how do we know that there is
+        no code that <i>starts</i> with 0001 ?<span style="">&nbsp; </span>How
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        do we know that 0001<b>1</b> is not the code for some other
+        letter?<span style="">&nbsp;</span><br>
+        <br>
+        If you look closely at the codewords of Code 1, you will notice
+        that no codeword is a prefix of another codeword.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The codeword for “H” is 0001.<span style="">&nbsp; </span>No
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        other codeword starts with 0001.<span style="">&nbsp; </span>The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        codeword for “S” is 01.<span style="">&nbsp; </span>Nothing
+        else begins with 01.<span style="">&nbsp; </span>Thus, using a
+        left-right scan, once we read 0001 we recognize the codeword for
+        “H.”<span style="">&nbsp; </span>Further, we know that 0001 is
+        not the start of the codeword for some other character, since no
+        other character code begins with 0001.<br>
+        <br>
+        <b>Definition.<br>
+        </b><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>A code is a <i>prefix code </i><span style="">&nbsp;</span>(
+        or has the <i>prefix property</i>) <i><span style="">&nbsp;</span></i>if
+no
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        codeword is the prefix of another codeword.<br>
+        <br>
+        Again, Code 1 has the prefix property but Code 2 does not.<span style="">&nbsp;&nbsp; </span>The codes which we will develop
+        will have the prefix property.<span style="">&nbsp;</span><br>
+        <br>
+        A Huffman code turns out to be an “optimal” prefix code.<span style="">&nbsp; </span>We will be more precise about the
+        meaning of “optimal” a bit later.<span style="">&nbsp; </span>First,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let’s see how the Huffman code is constructed.<br>
+        Once we look at the mechanics, we will take a closer look
+        underneath the hood.<br>
+        <br>
+        <br style="page-break-before: always;" clear="all">
+        <b>Codes and Binary Trees:<br>
+        </b><span style="">&nbsp;&nbsp;</span><br>
+        Let’s look at Code 1 again:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Character<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Codeword<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Frequency <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Relative Frequency<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.05<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.10<br>
+        <span style="">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>3<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.15<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp; &nbsp;&nbsp; </span>10<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.20<br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; L<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>11<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.20<br>
+        <u>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+            &nbsp; </span>01<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </span>6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </span>.30<br>
+        </u><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp; 20<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1.00<br>
+        <br>
+        We can represent this code with a binary tree.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>On such a tree,<br>
+        each left branch is labeled 0,<br>
+        each right branch is labeled 1<br>
+        the encoded characters are placed in the leaves<br>
+        <br>
+        <!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75"
+ o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:281.25pt;
+ height:161.25pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO1.jpg" v:shapes="_x0000_i1025" width="375" height="215"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1098637606">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        Notice that the concatenation of the branch labels on the path
+        from the root to any leaf gives the code word for the symbol
+        stored in the leaf.<span style="">&nbsp; </span>For example,
+        the path from the root to the leaf labeled “H’ is
+        left-left-left-right and the codeword for “H” is 0001.<span style="">&nbsp; </span>The path to “L” is<br>
+        right-right , so the codeword for “L” is 11.<br>
+        <br>
+        Huffman’s Algorithm constructs such a binary tree in a bottom up
+        manner. The Huffman tree yields an optimal prefix code<span style="">&nbsp; </span>for the symbols contained in the
+        leaves.<br>
+        <br style="page-break-before: always;" clear="all">
+        <br>
+        <b>Building the Huffman Tree.<br>
+          <br>
+        </b>First you build a <a href="http://web.stonehill.edu/compsci/LC/Frequency%20array.pdf">frequency
+          array </a>from the text<font face="Times New Roman">.<br>
+        </font>Given the frequencies of each character in a file, the
+        Huffman tree can be constructed as follows:<br>
+        <br>
+        For each symbol to be encoded, make the binary tree consisting
+        of a single root.<span style="">&nbsp; </span>Each of these<span style="">&nbsp; </span>root nodes should hold<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>the frequency (or relative frequency)<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>of one symbol. Ultimately, these nodes will be the leaves
+        of<span style="">&nbsp; </span>our Huffman tree<span>.&nbsp;
+          This can be implemented as a priority queue.&nbsp; The
+          priorities are the frequencies.</span><br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1026" type="#_x0000_t75" style='width:195.75pt;
+ height:48pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO2.jpg" v:shapes="_x0000_i1026" width="261" height="64"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1026"
+  DrawAspect="Content" ObjectID="_1098637607">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        2. Choose the two trees with the smallest root values and merge
+        these<span style=""> </span>into a new tree, as in the
+        following diagram. Here the trees labeled A and H are chosen.<span style="">&nbsp;Priorities/frequencies are 1 and 2. .&nbsp; </span>The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        root of the new tree holds the value 3 , obtained as the sum of
+        the values 1 and 2. Place this in the queue.&nbsp; Note <font face="Times New Roman">if two trees are the same weight, it
+          makes no difference which comes first in the priority
+          queue.&nbsp; The order may make a different final tree, but t<font face="Times New Roman">he overall cost will be the same.</font></font><br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1027" type="#_x0000_t75" style='width:200.25pt;
+ height:90pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO1.gif" width="305" height="188" border="0"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1027"
+  DrawAspect="Content" ObjectID="_1098637608">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        3.<span style="">&nbsp; </span>Continue the process, always
+        forming a new tree from the two trees with the lowest root
+        values. Here we merge the two trees each with 3 stored in the
+        root into a tree with root value 6.&nbsp; Place the new tree in
+        the queue.&nbsp; Four trees remain&nbsp; in the priority queue
+        with root values 4,4,6 and 6.<br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1028" type="#_x0000_t75" style='width:308.25pt;
+ height:156pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO2.gif" width="425" height="222" border="0"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1028"
+  DrawAspect="Content" ObjectID="_1098637609">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        4.<span style="">&nbsp; </span>Continue this process..<span style="">&nbsp; &nbsp; </span>Remember always merge the two
+        subtrees which have the smallest root values.&nbsp; These are
+        the two trees with root values 4 and 4.&nbsp; Merge them into a
+        single tree with root 8 and place the new tree in the queue.<br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1029" type="#_x0000_t75" style='width:337.5pt;
+ height:169.5pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO3.gif" width="447" height="232" border="0"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1029"
+  DrawAspect="Content" ObjectID="_1098637610">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        <br>
+        <br>
+        Now merge the two trees with root values 6 into a tree with root
+        12. Place the new tree in the queue so that&nbsp; two trees
+        remain:<br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1030" type="#_x0000_t75" style='width:373.5pt;
+ height:186pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO4.gif" width="511" height="356" border="0"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1030"
+  DrawAspect="Content" ObjectID="_1098637611">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        Merge the two trees into one final tree. Here&nbsp; is the final
+        tree, with each branch labeled either 0 or 1.<br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1031" type="#_x0000_t75" style='width:285pt;
+ height:165.75pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO7.jpg" v:shapes="_x0000_i1031" width="380" height="221"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1031"
+  DrawAspect="Content" ObjectID="_1098637613">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        <br>
+        The following is a general algorithm: <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>For each character <i>c</i> to be encoded<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        create a binary tree, consisting of a single root node r such
+        that<span style="">&nbsp; </span>content (r) =<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>f(c), the frequency of <i>c<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </i>Place each very simple tree&nbsp; into a priority queue S
+        where the priority is the frequency.<br>
+        &nbsp;for i = 1 to <i>n</i>-1&nbsp;<br>
+        {<br>
+        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; From the priority queue
+        ,S,<span style="">&nbsp; </span>remove the two trees, x and y,
+        with minimal values, f<sub>1 </sub>and f<sub>2</sub> in the
+        root<br>
+        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; create a tree with root z
+        such that<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>x<span style="">&nbsp; </span>is the left child of z<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; y is the right child of z<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>content(z) = f<sub>1</sub> <sub><span style="">&nbsp;</span></sub>+
+        f<sub>2<br>
+          &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </sub>add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        this new tree with root z to S.<br>
+        }<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;</span><br>
+        <span style=""></span></font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><span style=""><font face="Times New
+            Roman"><b>Here is a </b><b><a href="http://web.stonehill.edu/compsci/LC/Full%20tree%20example.pdf">full example</a></b><b>
+              showing the tree being built from the priority
+              queue.&nbsp;</b> <br>
+            The priority queue is minimum queue stored as a sorted
+            linked list<font face="Times New Roman">.&nbsp; Here iis one
+              way to build the <a href="http://web.stonehill.edu/compsci/LC/skeleton.txt">skeleton</a> of
+              the BinaryTree class.<br>
+            </font>Notice how at each step<font face="Times New Roman">
+              in t<font face="Times New Roman">he</font> algorithm:</font></font></span></font><font face="Times New Roman"><span style=""><font face="Times New
+            Roman"><br>
+          </font></span></font></p>
+    <ul>
+      <li><font face="Times New Roman"><span style=""><font face="Times
+              New Roman">two trees are deleted from the queue, <br>
+            </font></span></font></li>
+      <li><font face="Times New Roman"><span style=""><font face="Times
+              New Roman"><font face="Times New Roman">a new tree is
+                built from them, an<font face="Times New Roman">d <br>
+                </font></font></font></span></font></li>
+      <li><font face="Times New Roman"><span style=""><font face="Times
+              New Roman"><font face="Times New Roman"><font face="Times
+                  New Roman">that t<font face="Times New Roman">ree is
+                    inserted back in t<font face="Times New Roman">o the
+                      queue.</font></font></font></font></font></span></font></li>
+    </ul>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"> <b>Using the Huffman tree to determine
+          the codewords.<br>
+        </b>Once the Huffman tree is created, it is easy to determine
+        the codeword for each character.<br>
+        <b><br>
+          <br>
+          Method 1: Bottom Up<br>
+        </b>As we’ve seen, each leaf represents one character.<span style="">&nbsp; </span>If we begin at a leaf and proceed up
+        ttree to the root, we can “trace out”<span style="">&nbsp; </span>(in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        reverse) the codeword for a given symbol:<br>
+        For each leaf a<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while a is not the root of
+        the tree<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>if a is a left subtree<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ‘0’<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>else<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>output ‘1’<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>a = parent(a)<br>
+      </font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman">Notice that the algorithm will output
+        codewords in reverse order.<span style="">&nbsp;</span><b><br>
+          <br>
+          Example:<br>
+        </b>Let a be leaf “ <b><span style="font-size: 18pt;">-</span></b>.”<br>
+        <b><br>
+        </b><br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1026" style='position:absolute;left:0;
+ text-align:left;flip:x;z-index:1;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="3in,59.1pt" to="234pt,68.1pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]--> <span style="position: absolute; z-index: 0;
+          left: 146px; width: 27px; height: 16px; top: 6750px;
+          margin-left: 287px; margin-top: 78px;"><img src="./Text Compression Lab_files/TEXTCO8.gif" v:shapes="_x0000_s1026" width="27" height="16"></span><!--[if gte vml 1]><v:shape id="_x0000_i1032"
+ type="#_x0000_t75" style='width:206.25pt;height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--><img src="./Text Compression Lab_files/TEXTCO9.jpg" v:shapes="_x0000_i1032" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1032"
+  DrawAspect="Content" ObjectID="_1098637614">
+ </o:OLEObject>
+</xml><![endif]--> <br>
+        <br>
+        a is a right subtree; output<span style="">&nbsp; </span>‘1’<br>
+        a = parent(a)<br>
+        <br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1027" style='position:absolute;left:0;
+ text-align:left;z-index:2;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="207pt,10.25pt" to="207pt,37.25pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:shape id="_x0000_i1033"
+ type="#_x0000_t75" style='width:206.25pt;height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO11.jpg" v:shapes="_x0000_i1033" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1033"
+  DrawAspect="Content" ObjectID="_1098637615">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        a is a left subtree; output ‘0’<br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1028" style='position:absolute;left:0;
+ text-align:left;z-index:3;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="3in,6.95pt" to="225pt,42.95pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]--> a = parent(a)<br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1034" type="#_x0000_t75" style='width:206.25pt;
+ height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO13.jpg" v:shapes="_x0000_i1034" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1034"
+  DrawAspect="Content" ObjectID="_1098637616">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        <br>
+        a is a left subtree; output ‘0’<br>
+        a = parent(a)<br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1029" style='position:absolute;left:0;
+ text-align:left;z-index:4;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="261pt,-18pt" to="261pt,9pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:shape
+ id="_x0000_i1035" type="#_x0000_t75" style='width:206.25pt;height:120pt'
+ o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]-->
+        <!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1035"
+  DrawAspect="Content" ObjectID="_1098637617">
+ </o:OLEObject>
+</xml><![endif]--> <br>
+        <span style="font-size: 12pt; font-family: &quot;Times New
+          Roman&quot;;"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:206.25pt;
+ height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO15.jpg" v:shapes="_x0000_i1025" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Paint.Picture" ShapeID="_x0000_i1025"
+  DrawAspect="Content" ObjectID="_1098638123">
+ </o:OLEObject>
+</xml><![endif]--></span><br>
+        a is the root; done<br>
+        <br>
+        Output: 100; codeword<span style="">&nbsp; </span>for “<span style="font-size: 18pt;">-</span>“ is 001<br>
+        <br style="page-break-before: always;" clear="all">
+        <b>Method 2 : Top Down --<font color="#FF0000"> this is easier</font><br>
+          <br>
+        </b>An ordinary, recursive tree traversal with an additional
+        parameter can also be used to determine the codewords:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>void traverse(string s, tree root)<br>
+        Each time that the function is called recursively, pass it
+        string<span style="">&nbsp; </span>s concatenated with either
+        ‘0’ or ‘1.’ When visiting a leaf, simply output string<span style="">&nbsp; </span>s –<span style="">&nbsp; </span>s<span style="">&nbsp; </span>is the codeword for character
+        associated with the leaf.<span style="">&nbsp;</span><br>
+        <b><br>
+          Encoding the file:<br>
+        </b>Simply translate each character using a table of codewords:<br>
+        <br>
+        Example:<span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;</span><br>
+        Character<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Codeword<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        H<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        <span style="">&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>001<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>10<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        L<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>11<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+        S<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>01<br>
+        <br>
+        Translate: “SHE-SELLS.......”<br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1032" style='position:absolute;left:0;
+ text-align:left;z-index:7;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="180pt,11.45pt" to="180pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1038"
+ style='position:absolute;left:0;text-align:left;z-index:13;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="261pt,11.45pt" to="261pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1037"
+ style='position:absolute;left:0;text-align:left;z-index:12;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="252pt,11.45pt" to="252pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1036"
+ style='position:absolute;left:0;text-align:left;z-index:11;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="243pt,11.45pt" to="243pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1035"
+ style='position:absolute;left:0;text-align:left;z-index:10;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="225pt,11.45pt" to="225pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1034"
+ style='position:absolute;left:0;text-align:left;z-index:9;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="3in,11.45pt" to="3in,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1033"
+ style='position:absolute;left:0;text-align:left;z-index:8;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="198pt,11.45pt" to="198pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1031"
+ style='position:absolute;left:0;text-align:left;z-index:6;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="162pt,11.45pt" to="162pt,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:line id="_x0000_s1030"
+ style='position:absolute;left:0;text-align:left;z-index:5;
+ mso-position-horizontal-relative:text;mso-position-vertical-relative:text'
+ from="2in,11.45pt" to="2in,29.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]--> <b>01</b>0001<b>10</b>001<b>01</b>10<b>11</b>11<b>01<br>
+          <br>
+          S<span style="">&nbsp; </span>H<span style="">&nbsp; </span>E<span style="">&nbsp;&nbsp;&nbsp; </span>-<span style="">&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </span>S E<span style=""> </span>L L S<br>
+          <br>
+          Decoding a compressed file:<br>
+        </b>When decoding a compressed file, you will once again use the
+        Huffman tree. Consequently, the frequency table must once again
+        be available.<span style="">&nbsp; </span>When the tree is
+        constructed, the text characters are stored in the leaves.<span style="">&nbsp; </span>Each codeword, determines a unique
+        path from the root of the tree to to the leaf holding the
+        translation of the code word.<span style="">&nbsp; </span>Once
+        we reach a leaf, we begin the decoding process again at the
+        root.<br>
+        <br style="page-break-before: always;" clear="all">
+        <br>
+        Example:<span style="">&nbsp; </span>Decode : 0100011.....<br>
+        <br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1039" style='position:absolute;left:0;
+ text-align:left;z-index:14;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="279pt,3.05pt" to="279pt,21.05pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]--> Begin at<span style="">&nbsp; </span>the root:<br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1036" type="#_x0000_t75" style='width:206.25pt;
+ height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO25.jpg" v:shapes="_x0000_i1036" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1036"
+  DrawAspect="Content" ObjectID="_1098637618">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        <b><br>
+          <br>
+          <span style="font-size: 16pt;">0</span></b>100011 –<span style="">&nbsp; </span>move left<br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1040" style='position:absolute;left:0;
+ text-align:left;z-index:15;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="225pt,3.95pt" to="225pt,21.95pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:shape id="_x0000_i1037"
+ type="#_x0000_t75" style='width:206.25pt;height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO27.jpg" v:shapes="_x0000_i1037" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1037"
+  DrawAspect="Content" ObjectID="_1098637619">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        0<b><span style="font-size: 16pt;">1</span></b>00011 – move
+        right<br>
+        <!--[if gte vml 1]><v:line id="_x0000_s1041" style='position:absolute;left:0;
+ text-align:left;z-index:16;mso-position-horizontal-relative:text;
+ mso-position-vertical-relative:text' from="252pt,27.45pt" to="252pt,45.45pt">
+ <v:stroke endarrow="block"/>
+</v:line><![endif]-->
+        <!--[if gte vml 1]><v:shape id="_x0000_i1038"
+ type="#_x0000_t75" style='width:206.25pt;height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO29.jpg" v:shapes="_x0000_i1038" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1038"
+  DrawAspect="Content" ObjectID="_1098637620">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <b><br>
+        </b>A leaf—“S”<span style="">&nbsp; </span>(01 is the codeword
+        for S)<br>
+        Go back to the root and continue the process.<br>
+        01<b><span style="font-size: 16pt;">0</span></b>0011<span style="">&nbsp; </span>etc.<b><br style="page-break-before:
+            always;" clear="all">
+          <br>
+          <big><big>Exercise 2:</big></big><br>
+        </b><br>
+      </font><font face="Times New Roman"> &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; a. Construct a Huffman
+        tree for the alphabet A B C D E F where the relative frequencies
+        of each character are:</font><br>
+      <font face="Times New Roman"> <br>
+      </font><font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; A<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.22</font><br>
+      <font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; B<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.13</font><br>
+      <font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; C<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.33</font><br>
+      <font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </span>D<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.10</font><br>
+      <font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </span>E<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.20</font><br>
+      <font face="Times New Roman"> <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; F<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>.02</font><br>
+      <font face="Times New Roman"> <br>
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; b. Use
+        the tree to determine the code word for each of the character of
+        this short alphabet<br>
+        <br>
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c.
+        Encode the string “AECBCAF”<br>
+        <br>
+        <br>
+        <big><big><br style="page-break-before: always;" clear="all">
+          </big></big><b><big><big>Program 1.<span style="">&nbsp; </span>Encoding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              a text file.<br>
+              <br>
+            </big></big> </b>Write a program which will encode a text
+        file using the Huffman algorithm.<b><span style="">&nbsp;</span><br>
+        </b>The user interface should be very simple.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Just provide the user with two prompts:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;</span>Input file:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;</span>Output file:<br>
+        so that the user <span style="">&nbsp;</span>may supply the
+        name of the input (text) file as well as a name for the
+        compressed file.<span style="">&nbsp; </span>Your output should
+        actually be <b>two</b> files : the compressed file,<span style=""> </span>and also a file with the frequency table .<span style="">&nbsp; </span>This second file should have the same
+        name as the compressed file and an extension of <i>feq</i>.<span style=""> </span>For example if the compressed file is called
+        <i>something.zip</i> then the second file should be <i>something.feq</i><span style=""></span><span style=""></span><br>
+        <b><br>
+        </b>To encode text using a Huffman code you must<br>
+      </font><font face="Times New Roman"> &nbsp;&nbsp;&nbsp; First
+        build a frequency chart for all characters in your text</font><br>
+      <font face="Times New Roman"> &nbsp;&nbsp;&nbsp; Build a Huffman
+        tree</font><br>
+      <font face="Times New Roman"> &nbsp;&nbsp;&nbsp; Make a list of
+        all codewords</font><br>
+      <font face="Times New Roman"> &nbsp;&nbsp;&nbsp; Using the list of
+        codewords, encode your text.</font><br>
+      <font face="Times New Roman"> <br>
+        Here are a few suggestions to help you with the implementation.<span style="">&nbsp;</span><br>
+        <br>
+        If you read the file a line at a time, you need to add \n into
+        the compressed file yourself after each line, because the read
+        method will not include the line feed.<br>
+        Since ASCII values fall in the range<span style="">&nbsp; </span>0
+        ...127, use a simple array (int freq[128]) to store frequencies.<br>
+        <span style=""></span>For example,<span style=""> </span>if 'A'
+        has frequency 13, then freq[65]<span style=""> </span>will have
+        the value 13. Of course, not all ASCII characters will appear in
+        your text, so many entries in the frequency array will be 0.<span style="">&nbsp;</span><br>
+        <br>
+        When you build the Huffman tree, you must make a number of
+        design decisions.<br>
+        <span style="">&nbsp;</span><br>
+        As you know, the algorithm builds the tree incrementally.<span style="">&nbsp; </span>At each step, the sub-trees with
+        minimum roots must be chosen.<span style="">&nbsp; </span>The
+        simplest method for determining the these two minimum valued
+        trees would be to use a<span style=""> </span>priority queue.<span style=""> Do <i>not </i>download Ralph's generic priority
+          queue.&nbsp; Instead, build your own priority queue of trees,
+          and create a class of trees made of Nodes each of which has
+          character, an integer, and two pointers to Nodes.</span> </font>
+    </p>
+    <font face="Times New Roman"></font>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"> If you plan to build your table of
+        codewords<span style=""> </span>in a bottom up fashion, you
+        will need to maintain a table which holds the address of each
+        leaf on the tree.<span style="">&nbsp; </span>Also, each node
+        must contain the address of its parent.&nbsp; The top down
+        method is easier and is really just an inorder traversal which
+        keeps track of the codewords as you do the traversal.<br>
+        <br>
+        Simply keep the codewords in an array indexed from 0 to 127 so
+        that you may access the a character’s codeword directly, i.e.,
+        without a search.<span style="">&nbsp; </span>Save your&nbsp;
+        frequency table to a file – simply list the 128 frequencies in
+        the array.<span style="">&nbsp;&nbsp;</span><br>
+      </font><br>
+    </p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><big><big> </big></big><b><big><big>Program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              2: Decoding a compressed file.<br>
+              <br>
+            </big></big> </b>Write a program which will decode a
+        compressed file. Your program will need to use the tree and the
+        codewords that you built in Program 1, which had access to the
+        original uncompressed text.<br>
+        Your program should prompt<span style=""> </span>the user for
+        two file names:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp; </span>Compressed<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>file:<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp; </span>Text file:<br>
+        If the name of the compressed file is <i><span style=""></span>something.zip</i>,
+        your program should use that file and also the file <i>something.feq</i>
+        as input.<span style="">&nbsp;</span><br>
+        <br>
+      </font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><b><big><big>Exercise 3:<br>
+            </big></big></b></font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><b> </b>Use the programs in the previous
+        exercises to compress( and decode)<br>
+        a. <i><a href="http://web.stonehill.edu/compsci/LC/Dec%20of%20Ind.txt">The Declaration of
+            Independence</a></i><br>
+        b. <i><a href="http://web.stonehill.edu/compsci/LC/Constitution.txt">The US Constitution</a></i><br>
+        c. Shakespeare’s <i><a href="http://web.stonehill.edu/compsci/LC/hamlet.txt">Hamlet</a></i><br>
+        The text of these files can be downloaded.</font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><font face="Times New Roman"><b><font size="+2">Real Life Compression<br>
+              <br>
+            </font> </b>For convenience,<span style=""> </span>you
+          encoded your text into <b>characters</b> (bytes), with each
+          byte equal to either ‘0’ or ‘1’. However,</font></font><font face="Times New Roman"><font face="Times New Roman"><font face="Times New Roman"><font face="Times New Roman"> </font></font>
+          storing each bit in its own byte will result in a file 8 times
+          larger than it needs to be.&nbsp; In order to realize the true
+          "real-life"compression, you must convert the bytes into
+          bits.&nbsp; To do this, every eight '0' or '1' characters
+          (bytes) is packed into a single byte.&nbsp; Pseudo-code to
+          accomplish this is given below:<br>
+          <span style="">&nbsp;</span><br>
+          While there are more 0/1 characters (bytes) <br>
+          {<br>
+          &nbsp;&nbsp;&nbsp; byte temp = 0;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp; for i = 1 to 8&nbsp; </font></font><font face="Times New Roman"><font face="Times New Roman"><font face="Times New Roman"><font face="Times New Roman">//&nbsp;
+              This loop calculates the decimal value of 8 zeros and ones
+              and stores it in temp</font>.&nbsp; If the number of bytes
+            in the file is not divisible by 8, just pad the file with a
+            few extra bytes. </font>&nbsp; <br>
+          &nbsp;&nbsp;&nbsp; {<br>
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; b =
+          getnext_0_or_1_character();&nbsp; // get the next bit (stored
+          in a byte) <br>
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; temp = temp* 2 +
+          b;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; // note that b
+          should be 0 or 1 (not the ascii value of b which would be 48
+          or 49)</font></font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><font face="Times New Roman">
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; // Note that to
+          do this correctly in Java, you will need to cast the
+          expressions to bytes, since Java automatically up-casts bytes
+          to int when doing arithmetic<br>
+          &nbsp;&nbsp;&nbsp;&nbsp; }&nbsp; <br>
+          &nbsp;&nbsp;&nbsp; // store temp in a byte array<br>
+          }</font></font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><font face="Times New Roman">&nbsp; </font></font>
+      <font face="Times New Roman">For example, given the bits 10010011,
+        the byte "temp" grows from 0 like this: 0, 1, 2, 4, 9, 18, 36,
+        73, 147.&nbsp; <br>
+        &nbsp;These numbers represent the decimal value of the 8-bit
+        binary number 10010011 as it grows from left to right.&nbsp; <br>
+        (Note that Java stores byte values as two's complement signed
+        numbers, so if you try to print out these bytes, it will display
+        negative numbers for any unsigned value greater than 127.&nbsp;
+        This will not affect your compression at all.)<br>
+      </font></p>
+    <ul>
+      <li><font face="Times New Roman"> Compress each of the three files
+          as described above to get an 8-fold better compression byte
+          array. In order to write the byte array to a file, try <br>
+        </font></li>
+    </ul>
+    <blockquote>
+      <blockquote><font face="Times New Roman">FileOutputStream fos =
+          new FileOutputStream("pathname");</font><br>
+        <font face="Times New Roman">fos.write(myByteArray);</font><br>
+        <font face="Times New Roman">fos.close();</font><font face="Times New Roman"><br>
+          <br>
+          or follow instructions&nbsp; <a href="http://stackoverflow.com/questions/1769776/how-can-i-write-a-byte-array-to-a-file-in-java">here</a>:<br>
+        </font></blockquote>
+    </blockquote>
+    <ul>
+      <li><font face="Times New Roman">Use Winzip, or any commercial
+          text compressor, to compress each of the files in part 1.</font></li>
+    </ul>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"> Compete the following chart:</font></p>
+    <p class="MsoBlockText" style="margin-top: 12pt;" align="left"><font face="Times New Roman"><br>
+        <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SIZE
+          IN BYTES</b><br style="">
+        <br style="">
+      </font></p>
+    <table style="border: medium none ; margin-left: 1in;
+      border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td style="border: 0.5pt solid windowtext; padding: 0in 5.4pt;
+            width: 77.4pt;" width="103" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">Text
+                  file<o:p> </o:p> </font></b></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">(winzip)
+
+
+
+                  or any commercial compressor<o:p> </o:p> </font></b></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">Huffman<o:p>
+                  </o:p> </font></b></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 77.4pt;" width="103" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">Declaration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  of Independence<o:p> </o:p> </font></b></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 77.4pt;" width="103" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">Constitution<o:p>
+                  </o:p> </font></b></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 77.4pt;" width="103" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><b><font face="Times New Roman">Hamlet<o:p>
+                  </o:p> </font></b></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 63pt;" width="84" valign="top">
+            <p class="MsoBlockText" style="margin: 12pt -9pt 0.0001pt
+              0in;" align="left"><font face="Times New Roman">&nbsp;<o:p>
+                </o:p> </font></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman">You do not need to write any programs to
+        find these values.<span style="">&nbsp; </span>You can get all
+        this information via Windows and Word.<br>
+        <br>
+        <br style="page-break-before: always;" clear="all">
+        <b><big><big>Huffman Codes—mathematical questions.</big></big><br>
+          <br>
+        </b><span style="">&nbsp;</span>Now that we have looked at the
+        Huffman algorithm, let’s take a closer look at some of the
+        mathematical properties of a Huffman tree.<br>
+        <br>
+        <b><br>
+          <big> <big>Exercise 4:</big></big> </b><br>
+        We have stated that the Huffman’s Algorithm produces a code with
+        the prefix property.<span style="">&nbsp; </span>Explain why
+        this is the case.<span style="">&nbsp; </span>You do not have
+        to give a rigorous mathematical proof—just think about how the
+        tree is constructed and give a plausible explanation.<span style="">&nbsp; </span>A few sentences will suffice.<br>
+        <br>
+        <br>
+        <br>
+        <big><b>Optimal codes</b></big><br>
+        <b><br>
+        </b>We have stated the the Huffman code is<span style="">&nbsp;
+        </span>“optimal” so perhaps it is now time to give a more
+        precise definition of this term.<br>
+        <br>
+        We first begin by defining the cost of the code or equivalently
+        the tree.<br>
+        <br>
+        <b>Definition.<span style="">&nbsp;&nbsp; </span></b>Suppose T
+        is a tree representing a prefix code for a file.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The <i>cost of T, C(T), </i><span style="">&nbsp;</span>is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the number of bits necessary to encode the file.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Thus<br>
+        <br>
+        <i>C(T)</i> = <span style="font-size: 14pt;">Sum[</span>
+        frequency(<i>c</i>)*length(<i>c</i>)] for each character <i>c</i><br>
+        <br>
+        where length(<i>c</i>) is the length of the path from the root
+        of T to the leaf representing c.<br>
+        Note: length(<i>c</i>) is also the number of bits in the
+        codeword for character c.<br>
+        <br>
+        <br style="page-break-before: always;" clear="all">
+        <br>
+        Example:<br>
+        Consider the following Huffman tree, T which we built to encode
+        the message “SHE-SELLS-SEA-SHELLS”<br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1039" type="#_x0000_t75" style='width:206.25pt;
+ height:120pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO30.jpg" v:shapes="_x0000_i1039" width="275" height="160"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1039"
+  DrawAspect="Content" ObjectID="_1098637622">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        <br>
+        <br>
+        C(T) = frequency(‘A’)length(‘A’)+ frequency(‘H’)length(‘H’)
+        +frequency(‘-’)length(‘-’)+<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;</span>frequency(‘S’)length(‘S’)+
+        frequency(‘E’)length(‘E’)+ frequency(‘L’)length(‘L’) =<br>
+        <br>
+        1*4 + 2*4+3*3 + 6*2 + 4*2 + 4*2<span style="">&nbsp; </span>= 4
+        + 8 + 9 + 12<span style="">&nbsp; </span>+ 8 +8 = 49<br>
+        <span style="">&nbsp;</span><br>
+        <b>Definition.&nbsp;&nbsp;&nbsp;&nbsp; </b><span style=""></span>Suppose
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        T is a tree representing a prefix code for a file.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The code is<i><span style=""> </span>optimal</i> if C(T)
+        is minimal.<br>
+        <br>
+        Note an optimal code is not unique – for a given file more than
+        one optimal code may exist. (Trivially, just change all 0’s to
+        1’s and 1’s to 0’s in any optimal code and you have another
+        optimal code).<br>
+        <br>
+        <br>
+        With a precise definition of "optimal" in hand, we will prove
+        (in the next several exercises) that a Huffman tree is optimal.<br>
+        <br>
+        <b><big><big>Exercise 5:<br>
+            </big></big> </b>A full binary tree is a binary tree in
+        which ever non-leaf node has two children.<br>
+        Notice that the Huffman trees in our examples have been full
+        trees.<span style="">&nbsp;</span><br>
+        <br>
+        Prove: An<span style="">&nbsp; </span>optimal prefix code for a
+        file is always represented by a full binary tree<br>
+        Hint:<span style="">&nbsp; </span>Suppose there is a non-full
+        tree that did represent an optimal code.<span style="">&nbsp; </span>Find
+a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        contradiction by producing a better code.<br>
+        <br>
+        <b><big><big>Exercise 6:<br>
+            </big></big> </b>Show by means of a counter example that a
+        full binary tree may represent a prefix code which is not
+        optimal, even if all the letters with lower frequencies have
+        longer codewords.<br>
+        Suggestion: Build another full tree for “SHE-SELLS-SEA-SHELLS”
+        which has a higher cost than the tree of our previous examples.<br>
+        <br>
+        <br>
+        <b><big><big>Exercise 7:</big></big><span style=""><big><big>&nbsp;</big></big>
+          </span></b><br>
+        Let x and y be two characters with the lowest frequencies.
+        (Arbitrarily, assume frequency(x) &lt;= frequency(y)).<span style="">&nbsp; </span>Prove that there is an optimal tree
+        where x and y<span style="">&nbsp; </span>are siblings at the
+        maximum depth of the tree.<br>
+        Hint:<br>
+        Assume that you have an optimal prefix tree, T, such that<span style=""> </span>a and b are at the maximum depth.<br>
+        (You can assume frequency (a)<span style="">&nbsp; </span>&lt;=
+        frequency(b)).<span style="">&nbsp; </span>Here is a partial
+        view:<br>
+        <br>
+        <!--[if gte vml 1]><v:shape id="_x0000_i1040" type="#_x0000_t75" style='width:117pt;
+ height:91.5pt' o:ole="">
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image039.png"
+  o:title=""/>
+</v:shape><![endif]--> <img src="./Text Compression Lab_files/TEXTCO31.jpg" v:shapes="_x0000_i1040" width="156" height="122"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1040"
+  DrawAspect="Content" ObjectID="_1098637623">
+ </o:OLEObject>
+</xml><![endif]--><br>
+        Now, because x and y have the two smallest frequencies
+        frequency(x) &lt;= frequency(a) and frequency(y) &lt;=
+        frequency(b).<span style="">&nbsp;&nbsp; </span>Also, length(a)
+        &gt;= length(x) and length(b) &gt;= length(y).<br>
+        Now switch a and x, resulting in a new tree T’.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Show C(T’) &lt;= C(T)?. Now, in T’,<span style="">&nbsp;
+        </span>switch<span style="">&nbsp; </span>y and b.<span style="">&nbsp; </span>Show<span style="">&nbsp; </span>C(T’’)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        &lt;= C(T’)?<span style="">&nbsp;</span></font></p>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"><big><big><br>
+          </big></big><b><big><big>Exercise 8:</big></big><br>
+        </b>Prove that Huffman’s algorithm produces an optimal prefix
+        code tree.<br>
+        <br>
+        Outline of proof: Use mathematical induction on <i>n</i>, the
+        number of characters/leaves.<br>
+        For <i>n</i> = 1, Huffman’s algorithm produces a tree with one
+        node, obviously optimal.<br>
+        Now assume that for <i>n</i> leaves, Huffman’s algorithm
+        produces an optimal tree.&nbsp; Show that Huffman’s algorithm
+        produces an optimal tree for <i>n</i>+1 leaves.<br>
+        Let <i>T</i><sub><i>n</i>+1</sub> be an optimal tree with <i>n</i>+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        leaves. We may assume that in an optimal tree the two
+        characters, say <i>x</i> and <i>y</i>, with the lowest
+        frequencies are siblings at the lowest level of the tree. (Why
+        may we assume that?).<span style="">&nbsp; </span>Now remove <i>x</i>
+        and <i>y</i> and replace them with a “new character <i>z</i>
+        with frequency(<i>z</i>) = frequency(<i>x</i>) + frequency(<i>y</i>).<span style="">&nbsp; </span>Call the new tree <i>T</i><i><sub>n</sub></i>.<span style="">&nbsp; </span>Let<span style="">&nbsp; </span><i>T’</i><i><sub>n</sub></i><span style=""> </span>be the Huffman tree constructed from these <i>n</i>
+        characters<span style="">&nbsp;&nbsp; </span>Now finish the
+        proof.<br>
+        <br>
+        <big><big><br style="page-break-before: always;" clear="all">
+          </big></big><b><big><big>Exercise 9:</big></big><br>
+        </b><span style="">The Huffman tree for frequencies equal to the
+          first <i>n </i>Fibonacci numbers results in a very
+          unbalanced encoding of </span><i>n </i>characters. <i><br>
+        </i></font></p>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman">Suppose that the frequencies<span style=""> </span>for the characters a, b, c, d, e, f, g, and
+        h are the first 8 Fibonacci numbers: 1,1,2,3,5,8,13,and 21.<br>
+        <br>
+        Construct the Huffman tree.<br>
+        <br>
+      </font></p>
+    What is the cost of the tree?<br>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"> <br>
+        <br>
+        You found the cost for <i>n</i> = 8.&nbsp; Now you should
+        determine the general cost of the Huffman tree for <i>n</i>
+        characters when the frequencies are the first <i>n</i>
+        Fibonacci numbers<span style="">.&nbsp; <br>
+        </span></font></p>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"><span style="">a.&nbsp;&nbsp; Discover a
+          formula for the sum of the first <i>n</i> Fibonacci numbers,
+          and prove it by induction..<br>
+        </span></font></p>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"><span style="">Fill in this chart to help
+          you get a good conjecture.&nbsp;&nbsp; </span></font>Hint:
+      Look at Fibonacci(<i>n </i>+ 2).</p>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"><span style=""></span></font></p>
+    <table width="599" height="283" border="1" cellspacing="2" cellpadding="2">
+      <tbody>
+        <tr>
+          <td valign="top"><i><font face="Times New Roman">n</font></i><br>
+          </td>
+          <td valign="top">Fibonacci(<i>n</i>)<br>
+          </td>
+          <td valign="top">SumFib(<i>n</i>) = Fibonacci(1) +
+            Fibonacci(2) + ... + Fibonacci(<i>n</i>)<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top">1<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">2<br>
+          </td>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top">2<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">3<br>
+          </td>
+          <td valign="top">2<br>
+          </td>
+          <td valign="top">4<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">4<br>
+          </td>
+          <td valign="top">3<br>
+          </td>
+          <td valign="top">7<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">5<br>
+          </td>
+          <td valign="top">5<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">6<br>
+          </td>
+          <td valign="top">8<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">7<br>
+          </td>
+          <td valign="top">13<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">8<br>
+          </td>
+          <td valign="top">21<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">9<br>
+          </td>
+          <td valign="top">34<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"><span style=""></span> </font></p>
+    b.&nbsp; Prove that C(<i>n</i>) = C(<i>n</i>-1) + SumFib(<i>n</i>),
+    where C(1) = 0.<br>
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman">You can prove this by looking carefully
+        at the structure of the tree.&nbsp; Draw the trees.&nbsp; The
+        next tree is built inductively from the previous tree.<br>
+      </font></p>
+    <img alt="tree" src="./Text Compression Lab_files/tree.bmp" width="844" height="527">
+    <p class="MsoBlockText" style="margin-left: 0in;" align="left"><font face="Times New Roman"> Fill in this chart to help you with your
+        proof.&nbsp; </font>Hint:&nbsp; Line up the sums in the chart,
+      and examine the difference between two rows.<br>
+    </p>
+    <table width="599" height="255" border="1" cellspacing="2" cellpadding="2">
+      <tbody>
+        <tr>
+          <td valign="top"><i>n</i><br>
+          </td>
+          <td valign="top">Fibonacci(<i>n</i>)<br>
+          </td>
+          <td valign="top">C(<i>n</i>) = Cost of Huffman tree for the
+            first <i>n </i>Fibonacci numbers<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top" align="left">0*1 &nbsp; = 0<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">2<br>
+          </td>
+          <td valign="top">1<br>
+          </td>
+          <td valign="top" align="left">1*1 + 1*1&nbsp;&nbsp; = 2<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">3<br>
+          </td>
+          <td valign="top">2<br>
+          </td>
+          <td valign="top" align="left">2*1 + 2*1 + 1*2 &nbsp; = 6<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">4<br>
+          </td>
+          <td valign="top">3<br>
+          </td>
+          <td valign="top" align="left">3*1 + 3*1 + 2*2 + 1*3 = 13<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">5<br>
+          </td>
+          <td valign="top">5<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">6<br>
+          </td>
+          <td valign="top">8<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">7<br>
+          </td>
+          <td valign="top">13<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">8<br>
+          </td>
+          <td valign="top">21<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">9<br>
+          </td>
+          <td valign="top">34<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    c.&nbsp; Using part (a), solve C(<i>n</i>) = C(<i>n</i>-1) + SumFib(<i>n</i>),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    where C(1) = 0,. by repeated substitution, and write C(<i>n</i>) as
+    a closed form in terms of F(<i>n</i>), for <i>n</i> &gt; 1. <br>
+    <br>
+    <br>
+    <b><font size="+2">Here is the movie: <a href="https://www.dailymotion.com/video/x1btavd">Nova The
+          Proof </a><br>
+        <br>
+        Movie Quiz:<br>
+        <br>
+      </font></b><font size="+2"><font size="+1">1.&nbsp; What was
+        Fermat's "day job," i.e., how did he make a living?<br>
+        <br>
+        2.&nbsp; Where did Andrew Wiles live when he worked on Fermat's
+        Last Theorem?<br>
+        <br>
+        3.&nbsp; The statement of Fermat's Last Theorem was written in
+        the margin of Fermat's copy of Diophantus' book on
+        Arithmetic.&nbsp; According to his notes, why didn't Fermat
+        include his proof?<br>
+        <br>
+        4.&nbsp; How many years elapsed (to the nearest hundred) between
+        the statement of Fermat's Last Theorem and its proof?<br>
+        <br>
+        5.&nbsp; What two mathematical subjects that "live on different
+        planets" are bridged by the Taniyama-Shimura Conjecture?<br>
+        <br>
+        6.&nbsp; Goro Shimura died in 2019 at the age of 89.&nbsp; What
+        happened to Taniyama?<br>
+        <br>
+        7.&nbsp; The song "One Way or Another" that plays in the movie
+        is by what female 1980's punk vocal artist?&nbsp; (singer or
+        group name is acceptable)<br>
+        <br>
+        8.&nbsp; What did Andrew Wiles' wife say she wanted for her
+        birthday?<br>
+        <br>
+        9.&nbsp; For how many years (within 3) did Wiles work on
+        Fermat's Last Theorem?<br>
+        <br>
+        10.&nbsp; Which mathematician was <b><i>not </i></b>mentioned
+        in the movie The Proof? John Coates, Andrew Wiles, Peter Sarnak,
+        Ken Ribet, Noam Elkies, Sophie Germain, John Conway, Pierre de
+        Fermat, Goro Shimura, Barry Mazur, Nick Katz.<br>
+        <br>
+      </font></font>
+    <p> </p>
+  
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

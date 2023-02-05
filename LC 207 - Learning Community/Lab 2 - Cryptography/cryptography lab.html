@@ -1,0 +1,1215 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0053)http://web.stonehill.edu/compsci/LC/Cryptography.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="Author" content="Shai Simonson">
+    <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+    <title>cryptography</title>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1028.0" data-gr-ext-installed="">
+    <center>
+      <h1>Stonehill College</h1>
+    </center>
+    <center>
+      <h1>Data Structures and Discrete Mathematics Learning Community</h1>
+    </center>
+    <center>
+      <h1>Professors Ralph Bravaco and Shai Simonson</h1>
+    </center>
+    <center>
+      <h1>Cryptography Laboratory</h1>
+    </center>
+    <h2> Introduction</h2>
+    <blockquote>In this lab, you will experiment with cryptographic
+      techniques that are the foundation for today’s e-commerce and
+      internet communication.
+      <p>In World War II the war behind the war was all about the
+        British trying to intercept and decode German transmissions.
+        (Check <a href="http://www.turing.org.uk/publications/mathswar1.html">here</a>
+        for the contributions of the famous pioneer computer scientist,
+        Alan Turing in this effort.). &nbsp; <a href="http://www.guardian.co.uk/world/2009/sep/11/pm-apology-to-alan-turing">Here</a>
+        is the recent apology from the British government.<br>
+      </p>
+      <p>A simple version of the codes used in World War II works like
+        this.&nbsp; The alphabet is shifted over by some number of
+        letters, so that “a” might become “f”, and “b” would be “g”,
+        etc., wrapping all the way around.&nbsp; We could call that the
+        "f"-shift.&nbsp; The substitutions for the f-shift are shown
+        below: </p>
+      <p>abcdefghijklmnopqrstuvwxyz <br>
+        fghijklmnopqrstuvwxyzabcde </p>
+      <p>For example, the word “shai” is encoded into “xmfn” using the
+        "f"-shift.&nbsp; Note that the f-shift is nothing more than
+        adding 5 to each letter’s ASCII value.&nbsp; You need to be
+        careful to wrap around appropriately modulo 26. </p>
+      <p>If that was all there was to encoding, then a code breaker
+        would only have to try 25 possibilities to break the code.&nbsp;
+        A code breaker simply tries translating the message using each
+        of the letter shifts until one translation looks like a real
+        message. </p>
+      <p>The Germans were more clever in creating their encodings.&nbsp;
+        The trick they used (more or less) was to have each subsequent
+        letter use a different shift.&nbsp; After a while these shifts
+        would cycle.&nbsp; The sequence of shifts was represented by a
+        code word consisting of letter shifts.&nbsp; For example, if the
+        codeword was “remarkable”, then the first letter of the message
+        would shift by 17, the second letter by 4, …, the 7th letter by
+        0 etc.&nbsp; The 11th letter would shift by 17 again like the
+        first and the cycle would start to repeat. </p>
+      <p>For example, the first few characters of the sentence “We meet
+        in New York for a rendezvous” would be encoded as “Ni
+        ye…”.&nbsp; Note that spaces between words were not actually
+        transmitted or encoded. </p>
+      <p><b>Checkpoint:&nbsp;</b> Make sure you can encode the rest of
+        the sentence yourself by hand. </p>
+      <p>For a codeword like “remarkable” of length ten, there are now
+        26<sup>10</sup> different possible encodings.&nbsp; The longer
+        the sequence of the cycle, the more possibilities there are.</p>
+    </blockquote>
+    <h2> Breaking the Code</h2>
+    <blockquote>Once one knows the length of the cycle, there are a
+      number of techniques for breaking the code without having to try
+      all the possibilities. One idea is to divide the letters of the
+      encoded message up into 10 groups, one for each shift in the
+      cycle.&nbsp; The 1st, 11th, 21st etc make the first group.&nbsp;
+      The 2nd, 22nd, 32nd etc. make the second group.&nbsp; And so
+      on.&nbsp; The letters in each group are encoded using the same
+      shift.
+      <p>We try to decode the letters a group at a time.&nbsp; For each
+        group, we try all 26 possible shifts, but since the letters in
+        each group are scattered throughout the message, we are unlikely
+        to learn anything by doing this.&nbsp; The chance of something
+        looking familiar will be very small. </p>
+      <p>There is a way to learn something about the message
+        nevertheless.&nbsp; Every language has a characteristic
+        statistical frequency for each letter.&nbsp; For example, in
+        English the letter “e” is the most common.&nbsp; For a given
+        group, we compare the frequencies of the letters in each of the
+        26 decodings to the expected frequencies.&nbsp; Matching the two
+        sets of frequencies helps identify the shift or at least narrows
+        down the number of possibilities from 26 to just a few. </p>
+      <p>The Germans actually used a more complex version of cycles and
+        shifts that required a more sophisticated computer-aided
+        decoding effort.&nbsp; For one thing, they allowed an arbitrary
+        substitution of 26 letters rather than a single shift
+        value.&nbsp; See a <a href="http://en.wikipedia.org/wiki/Enigma_machine">description
+        </a>and a <a href="http://russells.freeshell.org/enigma/">simulator</a>
+        of their Enigma machines.&nbsp; This <a href="https://www.youtube.com/watch?v=ncL2Fl6prH8">movie</a>
+        explains all the details about the Enigma hardware:&nbsp;&nbsp;
+        rotors, reflectors, and plugboard.&nbsp; The end of the story
+        was that the British were successful in their efforts to <a href="http://en.wikipedia.org/wiki/Cryptanalysis_of_the_Enigma">crack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          the Enigma code</a>, and the Allies prevailed.</p>
+    </blockquote>
+    <blockquote><b>Program 1.</b>&nbsp; A cycle of shifts is described
+      by a codeword like REMARKABLE, where each letter represents a
+      shift, A is 0, B is 1, … and Z is 25.&nbsp; Write a program that
+      takes a text and a codeword, and produces the encrypted
+      text.&nbsp; You will need to use the % (mod) operator and perhaps
+      an if-statement or two to make sure you wrap around
+      appropriately.&nbsp;&nbsp; You could keep the codeword in a
+      circularly linked list, but that is not necessary.&nbsp; For
+      simplicity, you may assume that all letters are uppercase.<br>
+    </blockquote>
+    <blockquote><b>Program 2.</b>&nbsp; Modify your program so that it
+      can decode as easily as it encodes. All you need to do is add an
+      option to decode, and then do subtraction rather than addition.
+      <p>Make a note of how symmetric this is!&nbsp; This was the
+        hallmark of cryptography since ancient times, until the last
+        twenty years.&nbsp; If you knew how to encode something, then
+        you knew how to decode it.&nbsp; You might be thinking “well
+        duh!!” </p>
+      <h3>Determining the Cycle Length</h3>
+      An ingenious method to determine the cycle length was discovered
+      by <a href="http://en.wikipedia.org/wiki/William_F._Friedman">Philip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Friedman</a> whose paper is described by David Kahn in his
+      seminal history of cryptography&nbsp; as "the most important
+      single publication in cryptology."&nbsp;&nbsp; Friedman defines
+      the index of coincidence, a statistical measure of text, that for
+      normal English is about 6.6%, but for a random collection of
+      letters is only about 3.8%.
+      <p>To determine the index of coincidence of a particular piece of
+        text, take the text, rotate it by some arbitrary number of
+        places, and write the rotated text underneath the original
+        text.&nbsp; For example, the sentence below is rotated by 58
+        characters and the rotated version appears beneath it. </p>
+      <p>alanturingbreakscodeslikenobodysbusinessbuthispersonallifesadlybecameeverybodysbusiness
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <br>
+        dysbusinessbuthispersonallifesadlybecameeverybodysbusinessalanturingbreakscodeslikenobo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </p>
+      <p>Consider the number of places in which the same letter occurs
+        in both strings of text.&nbsp; In this example, there are 6 such
+        "coincidences".&nbsp; The <i>index of coincidence</i> is the
+        ratio of coincidences to the total letters in the text.&nbsp; In
+        this&nbsp; example, it is 6/87, which equals approximately 6.9%,
+        a rate similar to the 6.6% of normal English text. You will not
+        likely see 6.6% with every shift, but you will see 6.6% more
+        surely if you average over all the shifts, ranging from 1
+        through the length_of_the_text - 1.&nbsp; In the example above,
+        if you shift once, twice, three times, etc., through 86, and
+        average all the indices of coincidence, you will get a value
+        quite close to 6.6%.<span style="font-style: italic;"><br>
+        </span></p>
+      <p><span style="font-style: italic;">An important point to notice
+          is that when a text is encrypted with a single letter
+          codeword, the index of coincidence of the encrypted text is
+          identical to that of the original.</span><span style="font-style: italic;">&nbsp; </span>This is because
+        with a fixed single value shift, two letters match before the
+        shift if and only if they match after the shift.&nbsp; In
+        contrast, the index of coincidence of text encrypted with a
+        codeword of length greater than one, would likely be closer to
+        the 3.8% you expect with random letters. The exception is when
+        we happen to rotate the text by a multiple of the codeword's
+        length.&nbsp; In this case, the letters that are lined up
+        underneath each other are encoded using the same shift, and
+        therefore the usual English index of coincidence would be
+        expected.&nbsp; <br>
+      </p>
+      <p>Hence, to determine (or at least make a good guess at) the
+        codeword length is to rotate the encrypted text by 1, 2, 3 etc.
+        symbols, and examine the results looking for an index of
+        coincidence closer to 6.6% than 3.8%. As we mentioned, you may
+        not see the 6.6% with one particular codeword length rotation
+        but you will likely see it if you consider an average over a
+        larger number of rotations, each of which is a multiple of the
+        codeword length.&nbsp; Therefore: <i>When considering a
+          codeword of k symbols, pay special attention to rotations that
+          are multiples of k.&nbsp; You will get better results by
+          looking for 6.6% in the average of these multiples</i>.&nbsp;
+        <br>
+      </p>
+      <p>For example, say you have an encrypted text of 100 symbols, and
+        you calculate an index of coincidence for each rotation from 1
+        through 99.&nbsp; Furthermore, assume the data starts like this:</p>
+      <p>Rotation&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Index of
+        Coincidence<br>
+        1&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 1%<br>
+        2&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 3%<br>
+        3&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 5%<br>
+        4&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 8%<br>
+        5&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 3%<br>
+        6&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 7%<br>
+        7&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 2%<br>
+        8&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 1%<br>
+        9&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 8%<br>
+        10&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp; 4%<br>
+        ...&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ...<br>
+      </p>
+      <p>This fragment of the data seems to suggest that a likely
+        codeword length is 3, because the average of rotations 3, 6, and
+        9 equals 6.6%.&nbsp; To confirm this, you should consider the
+        rest of the data, (3, 6, 9, ... 99), along with averages of
+        multiples of other lengths, such as (2, 4, 6, ..., 98),&nbsp;
+        (4, 8, 12, ..., 96), (5, 10, 15, 95), etc.&nbsp; The reasonable
+        candidates for the actual codeword length, are those with
+        multiples that average closest to 6.6%.&nbsp; Remember, that
+        since this method is statistical, it is not guaranteed to
+        identify the cycle length -- just to point out likely
+        candidates.&nbsp; <br>
+      </p>
+      <p><b>Program 3.&nbsp; </b>Write a program that takes encrypted
+        text and calculates the index of coincidence for rotations of 1
+        through the length_of_text - 1.&nbsp; A chart like the one above
+        should be printed.&nbsp;&nbsp; <i>Create test data by cutting
+          some English text of at least 150 characters off the Internet,
+          and encrypting the text with a codeword of your choice using
+          Program 1.</i>&nbsp; Do nut use the example above
+        "alanturingbreakscodeslie..." because it is too short to get
+        very good data.<br>
+      </p>
+      <p>Analysis:&nbsp; Assuming that the codeword length is between
+        two and ten inclusive, use your program to help you guess the
+        exact codeword length by calculating the average index of
+        coincidence for all multiples of codeword lengths two through
+        ten, and searching for an average index of coincidence close to
+        6.6%.&nbsp; In your report, include the original text, encrypted
+        text, codeword, the data generated by your program, and your
+        analysis of finding the codeword's length. Include the average
+        index of coincidence for multiples of lengths 2 through 10.<br>
+      </p>
+    </blockquote>
+    <h2> Public Key Cryptography - A Revolution in Cryptography</h2>
+    <blockquote>Cryptographic methods do not have to be
+      symmetrical!&nbsp; Today a new kind of encoding is used which is
+      called Public Key, one-way, or sometimes trapdoor
+      cryptography.&nbsp; In this new method, the whole world is able to
+      encode information, but unless someone has more information, then
+      they still cannot decode a message.
+      <p>This new method is what allows e-commerce to flourish without
+        fear of a security breach.&nbsp; Here’s how this trapdoor
+        technology is used.&nbsp;&nbsp; Say I want to send my credit
+        card to Amazon.com to buy a book, I encode my number with a
+        publicly published method that anyone else could use, but only
+        Amazon.com can decode it! </p>
+      <p>What if I don’t trust that I am actually talking to
+        Amazon.com?&nbsp; That is, I suspect that a thief posing as
+        Amazon, sent me a fake encoding algorithm, and then they will
+        decode it and get my number!&nbsp; In that case, we do the
+        process in reverse.&nbsp; I ask Amazon to send me a message
+        encoded with their secret encoding that anyone can decode with
+        their public algorithm.&nbsp; If I decode the message and it
+        states, “Hi I am Amazon.com”, I know it had to come from them,
+        because nobody else would have known how to encode it
+        correctly.&nbsp; This is called authentication and is described
+        in nice detail by VeriSign, the largest digital signature
+        provider, at http://www.verisign.com/docs/pk_intro.html.</p>
+    </blockquote>
+    <h2> The Mathematics Behind Public Key Cryptography</h2>
+    <blockquote>Ironically, this new extremely practical technology is
+      based on one of the oldest branches of pure mathematics, famous
+      for its beauty and scarcity of practical applications:&nbsp;
+      number theory.
+      <p>The details of public-key cryptography are based on the RSA
+        algorithm, by Rivest, Shamir, and Adelman.&nbsp; We will review
+        the mathematics here briefly here and end with a few experiments
+        and programs.</p>
+    </blockquote>
+    <h2> Euclid’s Algorithm and Greatest Common Divisors</h2>
+    <blockquote>The greatest common divisor of two integers is the
+      largest integer that divides both evenly.&nbsp; For example, the
+      greatest common divisor (gcd) of 24 and 15 is 3. One way to
+      calculate the gcd of two numbers, a and b, is to simply try all
+      the numbers starting from the smaller of the two given numbers
+      down to one.&nbsp; The first of these numbers that divides both a
+      and b evenly, is the greatest common divisor.</blockquote>
+    <blockquote><b>Program 4.</b>&nbsp; Write a program to find the
+      greatest common divisor by trying each number from the lower
+      number and working downwards towards 1.
+      <p><b>Program 5.&nbsp;</b> Write a program to find the greatest
+        common divisor by listing the prime factors for each number, and
+        taking the intersection of the two lists.&nbsp;&nbsp; For
+        example, if the two numbers are 24 and 40, then the prime
+        factors of 24 are: 2, 2, 2, 3, and the prime factors of 40
+        are:&nbsp; 2, 2, 2, 5.&nbsp; The intersection of these two lists
+        is 2, 2, 2, so the gcd is 2x2x2 = 8. A nice way to do this is to
+        store the prime factors sorted in two arrays, and then use an
+        algorithm that resembles the "merging" algorithm. This takes
+        time proportional to the sum of the lengths of the two lists of
+        primes.&nbsp; A less efficient algorithm would take time
+        proportional to the product of the lengths of the two lists of
+        primes.<br>
+      </p>
+      <p>Notes for program 5:&nbsp; However you find the prime factors
+        of a number, you will likely need a method to check whether or
+        not a number <i>n</i> is prime.&nbsp; To check if a number <i>n</i>
+        is prime, it suffices to try divisors up to the square root of <i>n.&nbsp;
+
+        </i><br>
+      </p>
+      <p>Although the methods used in both program 4 and 5 are intuitive
+        and seem natural, neither is the best way to find greatest
+        common divisors.&nbsp; Both these algorithms take time
+        proportional to the size of the two numbers. It will be
+        important to us later to be able to find the greatest common
+        divisor efficiently without factoring the given numbers. </p>
+      <p>Euclid (300 B.C.E.) invented a method to compute greatest
+        common divisors that bears his name to this day.&nbsp; Euclid's
+        algorithm in time proportional to the number of digits in the
+        two numbers - a tremendous improvement over Programs 4 and
+        5.&nbsp; In Euclid’s algorithm, we use recursion.&nbsp; He
+        proved that assuming a&gt;b, then the gcd(a,b) = gcd(b, a mod
+        b).&nbsp; An example is shown below.</p>
+    </blockquote>
+    <table cols="2" width="30%">
+      <tbody>
+        <tr>
+          <td>
+            <center>a</center>
+          </td>
+          <td>
+            <center>b</center>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            <center>123</center>
+          </td>
+          <td>
+            <center>28</center>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <center>28</center>
+          </td>
+          <td>
+            <center>11</center>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <center>11</center>
+          </td>
+          <td>
+            <center>6</center>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <center>6</center>
+          </td>
+          <td>
+            <center>5</center>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <center>5</center>
+          </td>
+          <td>
+            <center>1</center>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <center>1</center>
+          </td>
+          <td>
+            <center>0</center>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <blockquote>When the smaller number, b, equals 0, then the answer is
+      a.&nbsp; In this case, the gcd(123, 28) = 1.</blockquote>
+    <blockquote><b>Programs 6a and 6b</b><b><br>
+      </b>
+      <blockquote><b>6a.</b> Write a recursive program to implement
+        Euclid’s algorithm.&nbsp; <br>
+        <b>6b.</b> Write an iterative program to implement Euclid’s
+        algorithm. </blockquote>
+      <p><b>Experiment and Discuss.&nbsp;</b> Test your four programs
+        (4, 5, 6a, 6b) on a variety (3 or 4) pairs of large numbers,
+        time the programs, and discuss the results.&nbsp; Make sure to
+        use some very large (long int) sized numbers to see the true
+        differences in time complexity.&nbsp; Make sure <i>not</i> to
+        time any printing or unrelated work that would inaccurately
+        spoil the timing.&nbsp; In Java, you can use System.nanoTime()
+        (returns a long),&nbsp; to get the current CPU time.&nbsp;
+        Calculating the time elapsed becomes a matter of subtracting the
+        start time from the finish time. </p>
+      <p>Note that theoretically Euclid’s algorithm (whether recursive
+        or iterative) takes time proportional to the number of digits in
+        the numbers (log <i>x</i>), while the other two algorithms take
+        time proportional to the numbers themselves (an exponential
+        explosion in complexity). This theory should let you check
+        whether your results make sense. Discuss the results of your
+        experiments with respect to the theory.<br>
+      </p>
+    </blockquote>
+    <h2> Connection to Cryptography</h2>
+    <blockquote>It is not obvious that Euclid’s algorithm has a lot to
+      do with RSA public-key cryptography, but it does.&nbsp; You will
+      need to be patient.
+      <p>A theorem of Euclid that we will not prove here, states that if
+        the gcd(<i>a,b</i>) = <i>m</i>, then there are two
+        integers&nbsp; <i>x</i> and <i>y</i> such that <i>ax + by = m</i>.&nbsp;
+
+
+
+        These values <i>x</i> and <i>y</i> can be computed
+        constructively using Euclid’s algorithm.&nbsp; Here is an
+        example using the numbers 123 and 28 from the previous example.
+      </p>
+      <blockquote>123&nbsp; =&nbsp; 28(4) + 11 <br>
+        28&nbsp; =&nbsp; 11(2) + 6 <br>
+        11&nbsp; =&nbsp; 6(1) + 5 <br>
+        6&nbsp; =&nbsp;&nbsp; 5(1) + 1</blockquote>
+      The greatest common divisor is 1.&nbsp; Now we work our way
+      backwards:
+      <blockquote>1&nbsp; = 6 – 5(1) <br>
+        1&nbsp; = 6 – (11 – 6(1))(1)&nbsp; = 6(2) – 11(1) <br>
+        1&nbsp; =&nbsp; (28–11(2))(2) – 11(1)&nbsp;&nbsp; = 28(2) –
+        11(5) <br>
+        1 = 28(2) – (123 – 28(4))(5) = 28(22) – 123(5)</blockquote>
+    </blockquote>
+    <blockquote>Each step gives us the x and y for the pair of numbers
+      on that level, until finally we arrive back at the original pair
+      of numbers 28 and 123, where the <i>x</i> and <i>y</i> are 22
+      and –5 respectively.&nbsp; Study this example, and try to
+      understand exactly what is going on.<br>
+    </blockquote>
+    <blockquote><b>Checkpoint:&nbsp;</b> To make sure you get the idea
+      above, compute by hand, the integers <i>x</i> and <i>y</i>, such
+      that <i>ax</i> + <i>by</i> = gcd(<i>a,b</i>) for each pair (<i>a,
+
+
+
+
+        b</i>) below:<br>
+      <div align="center"> (99, 101)&nbsp;&nbsp;&nbsp; (10,
+        35)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (7,
+        12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (36, 42) </div>
+      <p>The next program is only a few lines long, but you may still
+        need a hint trying to figure out how to set up the recursion.<br>
+      </p>
+      <p><b>Program 7.&nbsp;&nbsp; </b>Write a recursive program to
+        calculate the integers <i>x</i> and <i>y</i>, such that <i>ax</i>
+        + <i>by</i> = gcd(<i>a,b</i>) for a given pair <i>a</i> and <i>b</i>.&nbsp;
+
+
+
+
+        This program is crucial for the RSA cryptography
+        algorithm.&nbsp; Your program should have two outputs, one where
+        <i>x</i> is positive and <i>y</i> is negative, and one where <i>x</i>
+        is negative and <i>y</i> is positive.&nbsp; Test your program
+        out on the numbers 233987973 and 41111687.&nbsp; </p>
+      <p>Hints for program 7:&nbsp;&nbsp; We did the code for this in
+        class.&nbsp; <br>
+      </p>
+      <ul>
+        <li>Base case:&nbsp; if gcd(<i>a,b</i>) = <i>a</i> mod <i>b</i>,
+          we are at the last row, and we return (<i>x,y</i>) = (1, -(<i>a</i>/<i>b</i>)
+          ).&nbsp; An easier base case that goes one level deeper is "if
+          <i>b</i> = 0, then the gcd is <i>a</i>, and you can return (<i>x,y</i>)
+          = (1, 0).&nbsp; </li>
+      </ul>
+      <ul>
+        <li>Otherwise, recursively compute the function with the inputs
+          (<i>b</i>, <i>a</i> mod <i>b</i>).&nbsp; Call the outputs of
+          this recursive call <i>x</i>' and <i>y</i>'.&nbsp; Then the
+          original function returns (<i>x,y</i>) = (<i>y</i>', <i>x</i>'
+          - (<i>a</i>/<i>b</i>)<i>y</i>').&nbsp; </li>
+      </ul>
+      <ul>
+        <li>To get both positive and negative outputs, recall that <i>ax</i>
+          + <i>by = </i><i>ax</i> + <i>by + ab - ab = </i><i>a</i>(<i>x
+            - b</i>) + <i>b</i>(<i>y</i> + <i>a</i>)<i>, </i>and note
+          that if <i>x</i> is positive and <i>y </i>is negative, then
+          <i>x-b </i>is negative and <i>y+</i><i>a</i> is
+          positive.&nbsp; For example, for the numbers 123 and 28 of our
+          previous example, 1 = 28(22) + 123(-5) = 28(22 - 123) + 123(-5
+          + 28) = 123(23) - 28(101) = 1.<br>
+        </li>
+      </ul>
+    </blockquote>
+    <h2> &nbsp;Public Key Cryptography – A First Attempt</h2>
+    <blockquote>This section describes a method that is a simple version
+      of RSA, but has the drawback that the private key can be computed
+      from the public key using program 6 that you wrote earlier.&nbsp;
+      Study this simple version first, because although it does not
+      quite work because of the drawback mentioned, it will give you a
+      chance to understand what is really going on before tackling RSA
+      proper.
+      <p>All the public key cryptographic methods encode one integer
+        into another, so we assume that our messages are first converted
+        to a sequence of integers.&nbsp; The exact method of conversion
+        is not trivial but it won’t concern us here. </p>
+      <p>To encode a number, we will need the public key.&nbsp; This
+        consists of two integers, for example 5 and 17.&nbsp; The second
+        integer must be prime, and the first must be relatively prime to
+        the second integer minus one.&nbsp; In this case, 17 is prime,
+        and 5 is relatively prime to 16.&nbsp; Recall that two numbers
+        are relatively prime if and only if their greatest common
+        divisor is equal to one. </p>
+      <h3>Encoding and Decoding Numbers – Public and Private Keys</h3>
+      Now to encode a number, say 6, using this key.&nbsp; All we do is
+      calculate the remainder of 6<sup>5</sup> after dividing by
+      17.&nbsp; You can check that this equals 7.&nbsp; To decode 7 back
+      into 6, we need to have the private key.&nbsp; The private key
+      also consist of two numbers, one of which is really public, namely
+      the prime 17, and one of which is really private namely 13.&nbsp;
+      Then we calculate the remainder of 7<sup>13</sup> after dividing
+      by 17, and we get 6.
+      <p>Where does the 13 come from?&nbsp; Why does this work? </p>
+      <p>Thirteen is the solution to the equation 5<i>x</i> = 1 mod 16.
+      </p>
+      <p>What happened here is that we computed 6<sup>5(13)</sup> mod 17
+        = 7<sup>13</sup> mod 17 =&nbsp; 6 mod 17.&nbsp; Since 5(13) = 1
+        mod 16, we can write 5(13) = 16(4) + 1.&nbsp; This means that
+        that 6<sup>16(4) + 1</sup> = 6 mod 17, and equivalently 6<sup>16(4)</sup>
+        = 1 mod 17.&nbsp; It turns out that this must happen as long as
+        5(13) = 1 mod 16, and 5 has no common factors with 16.&nbsp;
+        There is a theorem to justify this. </p>
+      <h3>Fermat’s Little Theorem</h3>
+      <a href="http://www-groups.dcs.st-and.ac.uk/~history/Mathematicians/Fermat.html">Pierre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        de Fermat</a>, was an amateur but great mathematician of the
+      early 17th century.&nbsp; Fermat’s Little Theorem, not to be
+      confused with his more famous Last Theorem states:
+      <p>If p is a prime, and is not divisible by p, then p evenly
+        divides <i>a</i><sup><i>p</i>-1</sup> - 1.&nbsp; For example,
+        if p equals 17, and a equals 6, then 17 evenly divides 6<sup>16</sup>
+        – 1, or 6<sup>16</sup> = 1 mod 17.&nbsp; The proof is left for
+        the discrete math class.&nbsp;&nbsp; It is elegant but
+        irrelevant for this lab.&nbsp; It is the result that we
+        need.&nbsp; If 6<sup>16</sup> = 1 mod 17, then certainly 6<sup>16(4)</sup>
+        = 1 mod 17, and our encoding and decoding will work. </p>
+      <h3>Computing Inverses</h3>
+      It doesn’t matter if you understand all the mathematics here, but
+      you do need to understand how to calculate this number 13.&nbsp;
+      Recall that thirteen was the solution to the equation, 5<i>x</i> =
+      1 mod 16.&nbsp; That means we must find two numbers x and y such
+      that 5<i>x</i> – 16<i>y</i> = 1.&nbsp; Sound familiar?&nbsp; It is
+      just Euclid’s algorithm!
+      <p>The numbers 5 and 13 are called inverses of each other mod
+        16.&nbsp; That means they multiply together to equal one.&nbsp;
+        The computation of an inverse is just what you did in program 6.
+      </p>
+      <p>Now What?&nbsp; If a person wanted to calculate the private key
+        from the public key, they could do it by just using your program
+        6 and calculating the inverse of the private key mod 16.&nbsp;
+        What’s wrong is that it is possible to calculate inverses
+        quickly and efficiently. You wrote a program to do it
+        yourself!&nbsp; So if someone publishes a public key (5, 17) you
+        could have your program compute the private key (13, 17).&nbsp;
+        That is not good enough.&nbsp; We want the decoding to be harder
+        than the encoding.&nbsp; We do not want anyone to be able to
+        find 13 so easily.&nbsp; Only the person who holds this private
+        key can decode.</p>
+    </blockquote>
+    <h2> &nbsp;A Second Attempt at Public Key Cryptography</h2>
+    <blockquote>The first attempt described above is based on work by
+      Diffie and Hellman in 1976 (see
+      http://www.verisign.com/docs/pk_intro.html) and was known before
+      the contributions of Rivest, Shamir, and Adelman (RSA) in 1977.
+      The RSA contribution is described next. <br>
+      Now we start with two prime numbers, p and q, say 2 and 17, and
+      compute their product pq = 34.&nbsp; We calculate (<i>p</i>-1)(<i>q</i>-1)
+
+
+
+
+      = 16, and we choose a value that has no common factors with 16,
+      say 5.&nbsp; The public key becomes the pair of numbers 34 and 5.
+      <h3>Encoding and Decoding</h3>
+      The encoding and decoding is done just like before.&nbsp; For
+      example, to encode 6, we compute 6<sup>5 </sup>mod 34 = 24 and to
+      decode 24 we compute 24<sup>13 </sup>mod 34 = 6.&nbsp; As before,
+      thirteen is the solution to the equation 5<i>x</i> = 1 mod 16.
+      <p>The difference between this and our first attempt is that
+        previously, 16 was simply one less than the public prime, so
+        that the equation, 5x = 1 mod 16, was easily constructed (and
+        solved by program 6).&nbsp; But now the only way to calculate
+        16, is to factor the number 34 into 2 and 17 and compute
+        (2-1)(17-1).&nbsp; The factoring part is hard!&nbsp; Nobody
+        knows how to factor numbers quickly.&nbsp; The best method is
+        proportional to the given numbers.&nbsp; Contrast this with the
+        calculation of the inverse that is exponentially faster,
+        proportional only to the number of digits in the given numbers.
+      </p>
+      <p>Of course, anybody can factor 34, but in practice the two
+        primes that are chosen are on the order of 100 digits
+        each.&nbsp; This makes all currently known factoring algorithms
+        take centuries.&nbsp; If you come up with an efficient algorithm
+        (like the one for inverses) that can factor numbers, you will be
+        famous! </p>
+      <p><b>Checkpoint</b> <br>
+        a. Create your own public and private codes for doing RSA
+        encrypting.&nbsp; Make sure they satisfy all the appropriate
+        constraints. <br>
+        b. Assuming that each character in a message is represented by
+        its ASCII value, encode the message “Too much work!”.</p>
+    </blockquote>
+    <blockquote><b>Program 8.</b>&nbsp; Write a program to encode
+      numbers using RSA given the public key (<span style="font-style:
+        italic;">e</span>, <span style="font-style: italic;">m</span>).&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Recall that encoding a number <span style="font-style: italic;">w
+      </span>is done by calculating<span style="font-style: italic;"> w<big><sup>e</sup>
+        </big></span><big>mod</big><span style="font-style: italic;"><big>
+        </big>m.&nbsp; </span>Make sure to use the fast modular
+      exponentiation algorithm (Egyptian-style) that we discussed in
+      class.&nbsp; This allows you to deal with very large numbers
+      efficiently.&nbsp; Raising <span style="font-style: italic;">w</span>
+      to the <span style="font-style: italic;">e</span>th power can be
+      done with fast exponentiation in time proportional to log<span style="font-style: italic;"> e</span>.<br>
+      <br>
+      <b>Experiment and Discuss:&nbsp; </b>Replace the fast
+      exponentiation algorithm with a standard exponentiation algorithm
+      for <span style="font-style: italic;">w<big><sup>e</sup> </big></span><big>mod</big><span style="font-style: italic;"><big> </big>m </span>that runs in
+      time proportional to <i>e, </i>and test both programs on a few
+      large examples.&nbsp; Discuss the results.<br>
+      <p><b>Program 9.</b>&nbsp; Write a program that takes a public key
+        (<i>e</i>, <i>m</i>), <br>
+      </p>
+      <ul>
+        <li>factors<span style="font-style: italic;"> m</span> into <span style="font-style: italic;">p</span> and <span style="font-style: italic;">q</span>, <br>
+        </li>
+        <li>calculates (<span style="font-style: italic;">p</span>-1)(<span style="font-style: italic;">q</span>-1), <br>
+        </li>
+        <li>computes the inverse <i>d</i> = the inverse of <i>e </i>mod
+
+
+
+
+          (<span style="font-style: italic;">p</span>-1)(<span style="font-style: italic;">q</span>-1) to find the private
+          key (<i>d, m</i>), using program 7, and <br>
+        </li>
+        <li>decodes a message number <i>z </i>by calculating <i>z</i><sup><i>d</i></sup>
+          mod <i>m</i>, using program 8.<br>
+        </li>
+      </ul>
+      <blockquote>Recall that program 7 has two outputs, and you need to
+        find the positive value for <i>d </i>rather than the negative
+        value.<br>
+      </blockquote>
+      <p>Test your program on the puzzle below:<br>
+      </p>
+    </blockquote>
+    <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      Puzzle.&nbsp; Cracking the UFO Message.</b> <br>
+    <blockquote>
+      <blockquote> A public code is found etched on a rock on
+        Mars:&nbsp; (7, 1147).&nbsp; The message {128, 1040, 129, 1144,
+        788, 735, 570, 875} is received from outer space on one of the
+        billion machines running the Extraterrestrial Life Detector
+        Screen Saver distributed among the world’s PC’s.&nbsp; Assuming
+        that this message was encrypted with the public code found on
+        Mars, crack the code and decode the numbers.&nbsp; (Note that
+        this problem uses small primes, hence giving your program a
+        fighting chance to succeed before we are all dead.)<br>
+      </blockquote>
+      <span style="font-weight: bold;">Note that to use RSA on integers
+        that are <span style="font-style: italic;">really</span> large
+        (which is the whole idea), you need to use a "Big Integer" </span><span style="font-weight: bold;">class in order to avoid
+        overflow.&nbsp; </span><span style="font-weight: bold;">You can
+        get away with regular Java integers (int) for Challenge 3 and </span><span style="font-weight: bold;"><span style="font-weight: bold;">"long"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          Java integers for Challenge </span>4 below, but to proceed
+        further on more realistic data, you would need a class that
+        allows you to use integers of arbitrary size.&nbsp; </span><span style="font-weight: bold;">For C++ programs, here is one </span><a href="http://web.stonehill.edu/compsci/CS211/code/stack-template-array.htm">stack</a><span style="font-weight: bold;"> class that implements Big Integer
+        and here is <a href="http://web.stonehill.edu/compsci/CS211/code/stack-template-linked.htm">another.</a>&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </span> <span style="font-weight: bold;">For Java there is
+        built-in <a href="http://java.sun.com/javase/6/docs/api/java/math/BigInteger.html">BigInteger</a>
+        class.<br>
+        <br>
+        For years, RSA published public challenges to factor some very
+        large numbers (hundreds of digits).&nbsp; Many of these were
+        solved and prizes were paid.&nbsp; Recently, they shut down the
+        challenges.&nbsp; Nobody knows exactly why.&nbsp; <a href="http://mathworld.wolfram.com/news/2005-11-08/rsa-640/">Here</a>
+        is a nice explanation of the public RSA challenges.</span> <span style="font-weight: bold;"></span></blockquote>
+    <h2> Cryptographic Decoding Challenges</h2>
+    <p>&nbsp;&nbsp;&nbsp; Solve each of the challenges below, and
+      describe how you managed to solve each one.<br>
+    </p>
+    <blockquote>
+      <h3>Challenge 1.</h3>
+      A code word less than six letters long gives an encoding of a well
+      known cerebral song:&nbsp; The code word is the name of a famous
+      dog from the movie featuring the song.<br>
+      BQHIERPVBZXOPORHASACNFLQHBYSKFBBZKBHAHASYZHKXFLQHBLIEHBBZKBHAHASKOBB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <br>
+      PWMVMVXHACNUAHLWWPXHAWGYBBBQHIERUSTBHHASKZBBVCEBBTBCGZRVTRTPKOBB
+      <p>What is the original text? What is the code word?<br>
+      </p>
+      <h3>Challenge 2.</h3>
+      A code word less than six letters long gives an encoding of a math
+      joke about factorials, attributed incorrectly to Woody Allen: <br>
+      BOQWMNWOOQSSFHQKASRLAGOWRAADWRKAONCIOHKJKCYHVYWHLLC
+      <p>What is the original text?&nbsp; What is the code word?<br>
+      </p>
+      <h3>Challenge 3.</h3>
+      RSA encoding of nine ascii values, using public key (10555,
+      21971), gives: <br>
+      16912&nbsp;&nbsp;&nbsp; 19531&nbsp;&nbsp;&nbsp;
+      20676&nbsp;&nbsp;&nbsp; 16912&nbsp;&nbsp;&nbsp;
+      6613&nbsp;&nbsp;&nbsp; 2348&nbsp;&nbsp;&nbsp;
+      17835&nbsp;&nbsp;&nbsp; 15770&nbsp;&nbsp;&nbsp; 15770
+      <p>The original text is a famous cartoon hunter.&nbsp; What is the
+        original text? </p>
+      <h3>Challenge 4.</h3>
+      RSA encoding using public key (5555551, 118513313) gives: <br>
+      80217189&nbsp;&nbsp;&nbsp; 107242213&nbsp;&nbsp;&nbsp;
+      96490860&nbsp;&nbsp;&nbsp; 79543571&nbsp;&nbsp;&nbsp; 25953566
+      <p>What are the original numbers?<br>
+      </p>
+    </blockquote>
+    <p style="font-weight: bold;"><font size="+2">Enrichment Essay</font><br>
+      <big><big><big> </big></big></big></p>
+    <blockquote>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small><span style="font-weight: normal;">We </span>will
+                    screen the movie <a href="https://m.youtube.com/watch?v=0nBGz7WqtUI">Breaking
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      the Code</a> with Derek Jacobi and <a href="https://ww5.fmovie.sc/online/the-imitation-game-2014/watching.html/?ep=10">The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      Imitation Game</a> with Benedict Cumberbatch, both
+                    showing, in different ways, the role of Alan Turing
+                    in the British decryption of German codes in World
+                    War II.</small></small></small></big></big></big><big><big><big><small style="font-weight: normal;"><small><small>&nbsp;&nbsp;
+                    We will run also some friendly WWII style
+                    cryptographic competitions with prizes for the
+                    winners.<br>
+                  </small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small>Write your
+                    impressions of the two movies. Which movie did you
+                    like better and why? &nbsp; Which movie did you feel
+                    was more authentic and why?<br>
+                  </small></small></small></big></big></big></p>
+    </blockquote>
+    <p style="font-weight: bold;"><font size="+2">Short Answer Movie
+        Quiz</font></p>
+    <blockquote>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small>1.&nbsp; In
+                    which of the movies does Turing name the computer
+                    after his teenage boyfriend Christopher?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 2.&nbsp; In
+                    which of the movies does "Pat" earn her cryptography
+                    job by taking a test and beating out all the men?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 3.&nbsp; In
+                    which of the movies does Turing chain his coffee cup
+                    to the radiator?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 4.&nbsp; In
+                    Breaking the Code, when Pat tells Alan Turing that
+                    she loves him, there is an awkward silence after
+                    which Turing grabs a pine cone to change the
+                    subject.&nbsp; What does he point out to Pat about
+                    the pine cone?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 5.&nbsp; In
+                    Breaking the Code, Turing's government handler
+                    explains to him that he can't just go on ignoring
+                    the effect he has on other people or the effect they
+                    have on him.&nbsp; He warns Turing to keep his
+                    private life to himself so as not to raise red flags
+                    or offend anyone.&nbsp; What do we learn about the
+                    government official later in the film?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 6.&nbsp; In
+                    The Imitation Game, does Turing actually marry Pat?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 7.&nbsp;
+                    What happens to Christopher?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 8.&nbsp; In
+                    both movies, Turing writes directly to Winston
+                    Churchill - the prime minister of England - to ask
+                    for more support for his cryptography project.&nbsp;
+                    How does each movie portray the reactions of his
+                    government handler to this?</small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 9.&nbsp; In
+                    Breaking the Code, </small></small></small></big></big></big><big><big><big><small style="font-weight: normal;"><small><small><big><big><big><small style="font-weight: normal;"><small><small>when
+
+
+
+
+
+
+
+
+
+
+
+                                Turing first meets Ron, the young man
+                                with whom he eventually has an affair, </small></small></small></big></big></big>Turing
+
+
+
+
+
+
+
+
+
+
+
+
+                    tells him that he has just seen the film Snow White
+                    about a princess who falls into a deep sleep after
+                    eating a poison apple, but in the end lives happily
+                    ever after and marries a prince.&nbsp; </small></small></small></big></big></big><big><big><big><small style="font-weight: normal;"><small><small>Ron replies
+                    that he "like a thriller - a good thriller."&nbsp;
+                    What is the significance of the particular Disney
+                    film in that scene?<br>
+                  </small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small> 10. In which
+                    of the movies do we meet any of Turing's parents,
+                    and if so, which one(s)?<br>
+                  </small></small></small></big></big></big></p>
+      <p style="font-weight: bold;"><big><big><big><small style="font-weight: normal;"><small><small><br>
+                  </small></small></small></big></big></big><big><big><big><small style="font-weight: normal;"><small><small> </small></small></small></big></big></big>
+      </p>
+      <p><br>
+        <br>
+      </p>
+    </blockquote>
+  
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

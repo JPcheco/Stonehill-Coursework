@@ -1,0 +1,5910 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0044)http://web.stonehill.edu/compsci/LC/lab1.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+    <meta name="ProgId" content="FrontPage.Editor.Document">
+    <title>LClab1</title>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1027.0" data-gr-ext-installed="">
+    <h1 style="text-align: center; font-family: Arial;"><big><big><b><font size="3"><big><big>Stonehill College<br>
+                  Data Structures and Discrete Mathematics Learning
+                  Community<o:p> <br>
+                  </o:p>Professors Ralph Bravaco and Shai Simonson</big></big></font></b></big></big></h1>
+    <h1 style="text-align: center; font-family: Arial;"><big><big><b><font size="3"><big><big>Lab 1</big></big></font></b><b><font size="3"><big><big> - Chaos, Fractals, and Computer
+                  Graphics</big></big></font></b></big></big></h1>
+    <p class="MsoTitle" align="center"><font face="Times New Roman" size="3">&nbsp;<o:p> <span style="font-size: 12pt; font-family:
+            &quot;Times New Roman&quot;;"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+
+
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+
+
+ filled="f" stroked="f">
+
+
+ <v:stroke joinstyle="miter"/>
+
+
+ <v:formulas>
+
+
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+
+
+  <v:f eqn="sum @0 1 0"/>
+
+
+  <v:f eqn="sum 0 0 @1"/>
+
+
+  <v:f eqn="prod @2 1 2"/>
+
+
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+
+
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+
+
+  <v:f eqn="sum @0 0 1"/>
+
+
+  <v:f eqn="prod @6 1 2"/>
+
+
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+
+
+  <v:f eqn="sum @8 21600 0"/>
+
+
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+
+
+  <v:f eqn="sum @10 21600 0"/>
+
+
+ </v:formulas>
+
+
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+
+
+ <o:lock v:ext="edit" aspectratio="t"/>
+
+
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:110.25pt;
+
+
+ height:240pt'>
+
+
+ <v:imagedata src="file:///C:\DOCUME~1\rbravaco\LOCALS~1\Temp\msohtml1\01\clip_image001.png"
+
+
+  o:title=""/>
+
+
+</v:shape><![endif]--><img src="./LClab1_files/arcad.jpg" v:shapes="_x0000_i1025" width="147" height="320"><br>
+          </span></o:p></font></p>
+    <font face="Times New Roman" size="3"><o:p><span style="font-size:
+          12pt; font-family: &quot;Times New Roman&quot;;"></span></o:p></font><font face="Times New Roman" size="3"><o:p><span style="font-size: 12pt;
+          font-family: &quot;Times New Roman&quot;;"></span></o:p></font>
+    <p class="MsoTitle" align="center"><font face="Times New Roman" size="3"><o:p><span style="font-size: 12pt; font-family:
+            &quot;Times New Roman&quot;;"> </span></o:p></font></p>
+    <p class="MsoTitle" style="text-align: left;" align="left"><span style="font-weight: normal;"><font face="Times New Roman" size="3">Recently, mathematics has been the backdrop to some
+          very successful plays and films<span style="">&nbsp; </span>including<span style="">&nbsp; </span><i>A Beautiful Mind</i>, <i style="">Good Will Hunting,</i><span style=""> </span><i style=""><span style="">&nbsp;</span></i><span style="">and
+            the Pulitzer<span style="">&nbsp; </span>prize winning play
+          </span><i style="">Proof.<span style="">&nbsp; </span></i><span style=""><span style=""><br>
+            </span>In<span style="">&nbsp; </span></span>Tom Stoppard’s<span style="">&nbsp; </span>hilarious and award winning play, <i>Arcadia,
+
+
+
+
+
+
+
+          </i><span style="">&nbsp;</span>mathematics is not only a
+          backdrop but a major player.<span style="">&nbsp; </span>In a
+          British manor house, during both the nineteenth century and
+          the present day, and sharing the stage with sex and satire,
+          fractal geometry, chaos, thermodynamics and even Fermat’s last
+          theorem play starring roles in Stoppard’s<span style="">&nbsp;
+          </span>captivating, yet<span style="">&nbsp; </span>sometimes
+          inscrutable, comedy.</font></span><span style="font-weight:
+        normal;"><font face="Times New Roman" size="3"><o:p>&nbsp;</o:p></font></span>
+    </p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Since
+its
+premiere
+in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        1993, mathematicians have been fascinated with<i> Arcadia</i>.<span style="">&nbsp; </span>Indeed, <i>Arcadia</i> was the only
+        play ever to be reviewed in <i><span style="">&nbsp;</span>Scientific
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          American</i>. Allyn Jackson, in a review published in <i>Notices
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          of The American Mathematical Society</i>, noted that<span style="">&nbsp; </span>“<span style="">Stoppard has
+          understood something of the poetic heart of this area of
+          mathematics” and praised the playwright for “the thoroughness
+          with which [he]<span style="">&nbsp; </span>has integrated
+          these mathematical ideas into the action of the play.”<o:p></o:p></span></font><span style="font-weight: normal;"><font face="Times New Roman" size="3"><o:p>&nbsp;</o:p></font></span></p>
+    <p class="MsoNormal" style=""><span style="font-weight: normal;"><font face="Times New Roman" size="3"><o:p></o:p></font></span><span style="font-weight: normal;"><font face="Times New Roman" size="3"><font face="Times New Roman">Here is an <a href="http://web.stonehill.edu/compsci/arc/play.htm">audi</a><font face="Times New Roman"><a href="http://web.stonehill.edu/compsci/arc/play.htm">o</a>
+              of the ent<font face="Times New Roman">ire play<font face="Times New Roman">.</font></font></font></font></font></span><br>
+    </p>
+    <p class="MsoTitle" style="text-align: left;" align="left"><span style="font-weight: normal;"><font face="Times New Roman" size="3">For this lab, we’ll use<span style="">&nbsp; </span>“Arcadian
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          mathematics”<span style="">&nbsp; </span>as our<span style="">&nbsp;
+
+
+
+
+
+
+
+          </span>starting point.<span style="">&nbsp; </span>We will
+          touch upon fractal geometry and chaos as well as how computers
+          and technology have helped these fields grow and mature.<span style="">&nbsp; </span>In the process, you will see a
+          wonderful symbiotic relationship between mathematics and
+          computer science.<span style=""></span><o:p></o:p></font></span></p>
+    <span style=""><font face="Times New Roman" size="3"><o:p></o:p></font></span>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">We
+begin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        in a large country estate in Derbyshire, England.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The time is April 1809. In this scene, thirteen year old
+        Thomasina is engaged in conversation with her tutor Septimus
+        Hodge:</font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">THOMASINA:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Each week I plot your equations,
+        dot for dot, x’s against y’s in all matter of algebraical
+        relation, and every week they</font></p>
+    <p class="MsoNormal" style="margin-left: 1in;"><font face="Times New
+        Roman" size="3">draw themselves as commonplace geometry, as if
+        the world of forms were nothing but arcs and angles.<span style="">&nbsp; </span>God’s truth, Septimus, if there is an
+        equation for a curve like a bell, there must be an equation for
+        one like a bluebell, and if a bluebell, why not a rose?<span style="">&nbsp; </span>Do we believe nature is written in
+        numbers?</font></p>
+    <p class="MsoNormal" style="margin-left: 0in;"><font face="Times New
+        Roman" size="3">SEPTIMUS:</font></p>
+    <p class="MsoNormal" style="margin-left: 1in;"><font face="Times New
+        Roman" size="3">We do</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">THOMASINA:</font></p>
+    <p class="MsoNormal" style="margin-left: 1in;"><font face="Times New
+        Roman" size="3">Then why do your equations only describe the
+        shapes of manufacture?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">SEPTIMUS:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">I do not know.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">THOMASINA:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Armed thus, God could only make
+        a cabinet.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">SEPTIMUS:</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>He has mastery of equations which lead into infinities
+        where we cannot follow.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">THOMASINA:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">What a faint heart!<span style="">&nbsp; </span>We must work outward from the middle
+        of the maze.<span style="">&nbsp; </span>We will start with
+        something simple. I (<i>She picks up an apple leaf.) </i>I will
+        plot this leaf and deduce its equation.<span style="">&nbsp; </span>You
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        will be famous for being my tutor when Lord Byron is dead and
+        forgotten.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">We time travel to the present
+        day – same house, same room, in fact, same props. .<span style="">&nbsp; </span>Thomasina’s notebook has been
+        discovered by writer Hanna Jarvis,<span style="">&nbsp; </span>who
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        questions Valentine, a mathematician and biologist,<span style="">&nbsp; </span>as to its meaning:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        (<i>reading from Thomasina’s notebook</i>)</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">‘ I, Thomasina Coverly, have
+        found a truly wonderful method whereby all the forms of nature
+        must give up their numerical secrets and draw themselves through
+        number alone.<span style="">&nbsp; </span>The margin being too
+        mean for my purpose, the reader must look elsewhere for the New
+        Geometry of Irregular Forms discovered by Thomasina Coverly.’<span style="">&nbsp; </span>(<i>To Valentine</i>) Does it mean
+        anything?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">I don’t know.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>I don’t know what it means, except mathematically.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">I meant mathematically.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">It’s an iterated algorithm.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">What’s that?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Well it’s...Jesus...it’s an
+        algorithm that’s been...iterated.<span style="">&nbsp; </span>How
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        am I supposed to...? (<i>He makes an effort.</i>) The left hand
+        pages<span style="">&nbsp; </span>are graphics of what the
+        numbers are doing on the right hand pages.<span style="">&nbsp;
+        </span>But all on different scales.<span style="">&nbsp; </span>Each
+graph
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        is a small section of the previous one, blown up, like you’d
+        blow up a detail of a photograph, and then the detail of a
+        detail, and so on, forever.<span style="">&nbsp; </span>Or in
+        her case, till she ran out of pages.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Is it difficult?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">The maths isn’t difficult.<span style="">&nbsp; </span>It’s what you did at school.<span style="">&nbsp; </span>You have some x-and-y equation.<span style="">&nbsp; </span>Any value for x gives you a value for
+        y.<span style="">&nbsp; </span>So you put a dot where it’s
+        right for both x and y.<span style="">&nbsp; </span>Then you
+        take the next value of x which gives you another value for y any
+        when you’ve doe that a few times you join up the dots and that’s
+        your graph of whatever the equation is.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">And, is that what she’s doing?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">No. Not exactly.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Not at all. What she’s doing is, every time she works out
+        a value for y, she’s using <i>that</i> as her next value for x.
+        And so on.<span style="">&nbsp; </span>Like a feedback.<span style="">&nbsp; </span>She’s feeding the solution back into
+        the equation and then solving it again.<span style="">&nbsp; </span>Iteration,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        you see.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">And that’s surprising, is it?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Well, it is a bit.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>It’s the technique I’m using on my grouse numbers, and it
+        hasn’t been around for much longer than, well, call it twenty
+        years.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Why would she be doing it?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">I<span style="">&nbsp; </span>have
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        no idea.....</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">When your Thomasina was doing
+        maths, it had been the same maths for a couple of thousand
+        years.Classical.<span style="">&nbsp; </span>And for a century
+        after Thomasina.<span style="">&nbsp; </span>Then maths left
+        the real world behind, just like modern art, really.<span style="">&nbsp; </span>Nature was classical, maths was
+        suddenly Picassos.<span style="">&nbsp; </span>But now nature
+        is having the last laugh.<span style="">&nbsp; </span>The
+        freaky stuff is turning out to be the mathematics of the natural
+        world.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">..................</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><span style=""><font face="Times New Roman" size="3">&nbsp;</font></span></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">What I don’t understand is
+        ...why nobody did this feedback thing before—it’s not like
+        relativity, you don’t have to be Einstein.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">You couldn’t see to look before.<span style="">&nbsp; </span>The electronic calculator was what the
+        telescope was for Galileo.</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">Calculator?</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">There wasn’t enough time before.<span style="">&nbsp; </span>There weren’t enough <i>pencils</i>!
+        This took her I don’t know how many days and she hasn’t
+        scratched the paintwork. Now, she’d only have to press a button.<span style="">&nbsp; </span>Iteration. A few minutes.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Thomasina’s discovery
+        anticipated a new field of mathematics called fractal geometry.<span style="">&nbsp; </span>Fractal geometry has been able to
+        model complex objects like leaves, clouds, ferns, mountains, or
+        even the coastline of England. – objects that Euclidean
+        geometry’s lines, circles and spheres could not explain.<span style="">&nbsp; </span>Fractal geometry has ushered in a new
+        way of looking at nature. Fractals have found their way into the
+        realms of abstract art.<span style="">&nbsp;&nbsp; </span>Fractal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        images have even been used in popular films: <i>Star Trek II</i>
+        used fractal images to create computer-generated images of outer
+        space.<span style="">&nbsp; </span>Here are a few pictures of
+        these strange geometric objects – fractals:</font></p>
+    <font face="Times New Roman" size="3"> <span style=""><br style="page-break-before: always;" clear="all">
+      </span> </font>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <table style="border: medium none ; border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0" bordercolor="#ffffff" bgcolor="#000000">
+      <tbody>
+        <tr>
+          <td style="border: 0.5pt solid windowtext; padding: 0in 5.4pt;
+            width: 203.4pt;" width="271" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shapetype
+
+
+   id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+
+
+   path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+
+
+   <v:stroke joinstyle="miter"/>
+
+
+   <v:formulas>
+
+
+    <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+
+
+    <v:f eqn="sum @0 1 0"/>
+
+
+    <v:f eqn="sum 0 0 @1"/>
+
+
+    <v:f eqn="prod @2 1 2"/>
+
+
+    <v:f eqn="prod @3 21600 pixelWidth"/>
+
+
+    <v:f eqn="prod @3 21600 pixelHeight"/>
+
+
+    <v:f eqn="sum @0 0 1"/>
+
+
+    <v:f eqn="prod @6 1 2"/>
+
+
+    <v:f eqn="prod @7 21600 pixelWidth"/>
+
+
+    <v:f eqn="sum @8 21600 0"/>
+
+
+    <v:f eqn="prod @7 21600 pixelHeight"/>
+
+
+    <v:f eqn="sum @10 21600 0"/>
+
+
+   </v:formulas>
+
+
+   <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+
+
+   <o:lock v:ext="edit" aspectratio="t"/>
+
+
+  </v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:189pt;
+
+
+   height:135pt'>
+
+
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.jpg"
+
+
+    o:title="f2"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1.jpg" v:shapes="_x0000_i1025" width="252" height="180"></font></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 192.4pt;" width="257" valign="top" align="center">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+   id="_x0000_i1026" type="#_x0000_t75" style='width:228.75pt;height:135.75pt'>
+
+
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.jpg"
+
+
+    o:title="f3"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1_005.jpg" v:shapes="_x0000_i1026" width="305" height="158"></font></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 203.4pt;" width="271" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;
+              text-align: center;" align="center"><font face="Times New
+                Roman" size="3"><!--[if gte vml 1]><v:shape id="_x0000_i1027" type="#_x0000_t75"
+
+
+   style='width:192.75pt;height:169.5pt'>
+
+
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.png"
+
+
+    o:title="fern"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1_004.gif" v:shapes="_x0000_i1027" width="257" height="226"></font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 192.4pt;" width="257" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+   id="_x0000_i1028" type="#_x0000_t75" style='width:225pt;height:168.75pt'>
+
+
+   <v:imagedata src="../LCBackUp/lab1.h4.jpg"
+
+
+    o:title="spec"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1_003.jpg" v:shapes="_x0000_i1028" width="300" height="225"></font></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>From <i>Star Trek II: The Wrath of Khan<o:p> </o:p></i></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Obviously, fractals are
+        detailed, intricate objects.<span style="">&nbsp; </span>One
+        noticeable property of a fractal image is “self-similarity,” a
+        characteristic described by Valentine:</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">The
+left
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        hand pages<span style="">&nbsp; </span>are graphics of what the
+        numbers are doing on the right hand pages.<span style="">&nbsp;
+        </span>But all on different scales.<span style="">&nbsp; </span>Each
+graph
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        is a small section of the previous one, blown up, like you’d
+        blow up a detail of a photograph, and then the detail of a
+        detail, and so on, forever.<span style="">&nbsp; </span>Or in
+        her case, till she ran out of pages.”<span style="">&nbsp;</span></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-indent:
+      0.5in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><span style="">&nbsp;</span>On
+        the same subject, Ivars Peterson, in <i>The Mathematical
+          Tourist,</i> writes;</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">Fractal
+objects
+contain
+structures
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        nested within one another.<span style="">&nbsp; </span>Each
+        small structure is a miniature, though not necessarily
+        identical, version of the larger form.<span style="">&nbsp; </span>The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        mathematics of fractals mirrors this relation between patterns
+        seen in the whole and patterns seen in parts of the whole.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">If the idea seems confusing, a
+        single picture should clear things up.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Below is a picture of what is
+        called<span style="">&nbsp; </span>Sierpinski’s gasket.<span style="">&nbsp;</span></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+ id="_x0000_i1029" type="#_x0000_t75" style='width:192pt;height:192pt'>
+
+
+ <v:imagedata src="../LCBackUp/lab1.h5.gif"
+
+
+  o:title="image002"/>
+
+
+</v:shape><![endif]--> <img src="./LClab1_files/lab1.gif" v:shapes="_x0000_i1029" width="256" height="256"></font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">To generate Sierpinski’s gasket,<span style="">&nbsp; </span>begin with an equilateral triangle.<span style="">&nbsp;</span></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+ id="_x0000_i1030" type="#_x0000_t75" style='width:203.25pt;height:206.25pt'
+
+
+ o:ole="">
+
+
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.png"
+
+
+  o:title=""/>
+
+
+</v:shape><![endif]--> <img src="./LClab1_files/lab1_004.jpg" v:shapes="_x0000_i1030" width="271" height="275"><!--[if gte mso 9]><xml>
+
+
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1030"
+
+
+  DrawAspect="Content" ObjectID="_1093161065">
+
+
+ </o:OLEObject>
+
+
+</xml><![endif]--></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Now , find the midpoint of each
+        side and form three more triangles as in the diagram, discarding
+        the triangle in the center.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><span style=""><font face="Times New Roman" size="3">&nbsp;</font></span></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+ id="_x0000_i1031" type="#_x0000_t75" style='width:204pt;height:203.25pt'
+
+
+ o:ole="">
+
+
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.png"
+
+
+  o:title=""/>
+
+
+</v:shape><![endif]--> <img src="./LClab1_files/lab1_002.jpg" v:shapes="_x0000_i1031" width="272" height="271"><!--[if gte mso 9]><xml>
+
+
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1031"
+
+
+  DrawAspect="Content" ObjectID="_1093161066">
+
+
+ </o:OLEObject>
+
+
+</xml><![endif]--></font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Repeat the process—giving 9
+        triangles.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:shape
+
+
+ id="_x0000_i1032" type="#_x0000_t75" style='width:198pt;height:203.25pt'
+
+
+ o:ole="">
+
+
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.png"
+
+
+  o:title=""/>
+
+
+</v:shape><![endif]--> <img src="./LClab1_files/lab1_006.jpg" v:shapes="_x0000_i1032" width="264" height="271"><!--[if gte mso 9]><xml>
+
+
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1032"
+
+
+  DrawAspect="Content" ObjectID="_1093161067">
+
+
+ </o:OLEObject>
+
+
+</xml><![endif]--></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">And continue or
+        iterate......forever producing 1,2,9,27,
+        81,243,729....triangles.<span style="">&nbsp;&nbsp; </span>The
+        Sierpinski gasket is the set of points that remain if the
+        process is carried out indefinitely.<span style="">&nbsp; </span>Self-similarity
+is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        an apparent property of the Sierpinski gasket.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>However, the truly amazing thing about the Sierpinski
+        gasket is that <i>Sierpinski’s gasket has zero area.<span style="">&nbsp; </span><o:p> </o:p></i></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in; text-align:
+      center;" align="center"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><b><font face="Times New Roman" size="3">Exercise 1:<o:p> </o:p></font></b></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Write a program that will draw
+        the Sierpienski gasket.<span style="">&nbsp; </span>You might
+        write this as an</font> <font face="Times New Roman" size="3">iterative
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        procedure--- but don’t.<span style="">&nbsp; </span>Use a
+        recursive method:</font></p>
+    <blockquote>
+      <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">void sierpienski(int x1,int
+          y1, int x2, int y2, int x3, int y3, int depth, Graphics g)</font></p>
+    </blockquote>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><span style=""><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman" size="3">where<span style=""> </span>xi,
+        yi for i = 1 to 3, are the vertices of a triangle and depth is
+        the maximum level of recursion.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Remember: The top left hand
+        corner of<span style="">&nbsp; </span>your window is (0,0).</font></p>
+    <p class="MsoBodyTextIndent"><span style=""><font face="Times New
+          Roman" size="3">&nbsp;</font></span></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><b><font face="Times New Roman" size="3">Exercise 2:<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </span><o:p></o:p></font></b></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">In the play Valentine remarks:</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">You
+never
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        know where to expect the next dot.<span style="">&nbsp; </span>But
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        gradually you start to see this shape.....The unpredictable and
+        the predetermined unfold together to make everything the way it
+        is.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">This<span style="">&nbsp; </span>exercise,<span style="">&nbsp; </span>should give you an idea of how the
+        unpredictable and the predetermined<span style="">&nbsp; </span>do
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        unfold together.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Write a program which implements
+        the following iterative algorithm.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1.25in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">1.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;</span>Hardwire
+        into your program three points of an equilateral triangle (x<sub>1</sub>,y<sub>1</sub>),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        (x<sub>2</sub>,y<sub>2</sub>) (x<sub>3</sub>,y<sub>3</sub>).<span style="">&nbsp;&nbsp;</span> <span style="">&nbsp; </span>These
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        can be screen coordinates.<span style="">&nbsp; </span>Remember
+        (0,0) is at the top left corner.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1.25in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">2.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Pick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        one of the three vertices at random, call it (x,y)</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1.25in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">3.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Repeat</font></p>
+    <ol type="i">
+      <li>
+        <p class="MsoBodyTextIndent" style="margin-left: 1.5in;"><font face="Times New Roman" size="3">Pick a vertex, (x<sub>1</sub>,y<sub>1</sub>),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            (x<sub>2</sub>,y<sub>2</sub>)<span style="">&nbsp; </span>or
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            (x<sub>3</sub>,y<sub>3</sub>) at random.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </span>Call it v.</font> </p>
+      </li>
+      <li>
+        <p class="MsoBodyTextIndent" style="margin-left: 1.5in;"><font face="Times New Roman" size="3">Place (draw a pixel) a point
+            p exactly halfway between (x,y) and<span style="">&nbsp; </span>v</font>
+        </p>
+      </li>
+      <li>
+        <p class="MsoBodyTextIndent" style="margin-left: 1.5in;"><font face="Times New Roman" size="3">Set (x, y) equal to p</font>
+        </p>
+      </li>
+    </ol>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Forever ( or until 10000 points have been drawn)</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Describe the figure and explain
+        how the algorithm produced such a figure.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><b><font face="Times New Roman" size="3">Exercise 3:<o:p> </o:p></font></b></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">Write a program to implement the
+        following iteration.<span style="">&nbsp;&nbsp; </span>The
+        result should be another self-similar graphic.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">1.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Hardwire
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the coordinates of four corners of a square into a graphics
+        program.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">2.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Find
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the midpoints of the four sides of the square</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">3.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Use
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        a random number generator to select one of these eight points,
+        call it (x,y)</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">4.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Use
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        a random number to select one of the four vertices, v.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">5.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Draw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        a point p between (x,y) and v such that the distance from p to v
+        is 1/3 the distance from (x,y) to v.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">6.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Call
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the new point (x,y)</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0.75in;
+      text-indent: -0.25in;"><font face="Times New Roman" size="3">7.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>repeat<span style="">&nbsp; </span>4-6<span style="">&nbsp; </span>indefinitely</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><b><font face="Times New Roman" size="3">Exercise 4.<o:p> </o:p></font></b></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Design and implement an algorithm, similar to the
+        algorithms of either exercise 1,2, or 3.<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Your output should be some self-similar geometric figure.<span style="">&nbsp; </span>Use your imagination.<br style="page-break-before: always;" clear="all">
+        <b>Some colorful fractals.<o:p> </o:p></b></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">While
+the
+Sierpinski
+gasket
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        simply and effectively illustrates the notion of similarity, the
+        last decade has produced some amazing, and quite, beautiful
+        computer-generated pictures of fractals .<span style="">&nbsp; </span>Two
+of
+the
+most
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        famous fractal images are pictures of the Julia set and the
+        Mandlebrot set.&nbsp; Note:&nbsp; the Mandlebrot set is rotated
+        180 degrees from the picture you may generate.<br>
+      </font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <table style="border: medium none ; margin-left: 1.95in;
+      border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td style="border: 0.5pt solid windowtext; padding: 0in 5.4pt;
+            width: 117pt;" width="156" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;
+              text-align: center;" align="center"><font face="Times New
+                Roman" size="3"><!--[if gte vml 1]><v:shape id="_x0000_i1033" type="#_x0000_t75"
+
+
+   style='width:102.75pt;height:90.75pt'>
+
+
+   <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image015.jpg"
+
+
+    o:title="f1"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1_007.jpg" v:shapes="_x0000_i1033" width="137" height="121"></font></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 1.5in;" width="144" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;
+              text-align: center;" align="center"><font face="Times New
+                Roman" size="3"><!--[if gte vml 1]><v:shape id="_x0000_i1034" type="#_x0000_t75"
+
+
+   style='width:93pt;height:93pt'>
+
+
+   <v:imagedata src="../LCBackUp/lab1.h10.gif"
+
+
+    o:title="mandell"/>
+
+
+  </v:shape><![endif]--> <img src="./LClab1_files/lab1_002.gif" v:shapes="_x0000_i1034" width="124" height="124"></font></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 117pt;" width="156" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;
+              text-align: center;" align="center"><font face="Times New
+                Roman" size="3">Julia Set</font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 1.5in;" width="144" valign="top">
+            <p class="MsoBodyTextIndent" style="margin-left: 0in;
+              text-align: center;" align="center"><font face="Times New
+                Roman" size="3">Mandlebrot Set</font></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="MsoNormal" style="text-align: center;" align="center"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Ivars
+Peterson
+describes
+the
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Mandlebrot set:</font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">...It
+has
+the
+appearance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        of a snowman with a bad case of warts...On superficial
+        inspection, the Mandlebrot set looks like a self-similar
+        fractal, with infinitely many copies of itself within itself.<span style="">&nbsp; </span>On detailed investigation, however,
+        the set is extraordinarily complicated.<span style="">&nbsp; </span>The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        baby Mandebrot sets within the parent Mandlebrot sets are
+        fuzzier than the original.<span style="">&nbsp; </span>They
+        have more <i style="">hair</i> and other curious features.<span style="">&nbsp; </span>... Fractals such as the Mandlebrot
+        set are called nonlinear fractals.<span style="">&nbsp; </span>For
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        self-similar fractals, lines that show up within a figure,
+        whether blown up or reduced in size remain lines.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>For nonlinear fractals such a change in scale doesn’t
+        preserve the straightness of individual lines. </font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><b>Note</b></font></p>
+    <p class="MsoBodyTextIndent"><font face="Times New Roman" size="3">In
+order
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        to understand the basics of the Julia and Mandlebrot sest you
+        must know a little bit about complex numbers.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>If complex numbers are new to you or somewhat hazy, you
+        should read Appendix A of this lab.</font></p>
+    <p class="MsoNormal" style=""><b><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></b></p>
+    <p class="MsoNormal" style=""><b><font face="Times New Roman" size="3">THE JULIA<span style="">&nbsp; </span>SET:<o:p> </o:p></font></b></p>
+    <p class="MsoNormal" style=""><b><font face="Times New Roman" size="3">Iteration<span style="">&nbsp; </span>(Thomasina’s
+          Discovery!)<o:p> </o:p></font></b></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">The
+first
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        step to understanding these remarkable computer generated images
+        is the concept of an iterated algorithm.<span style="">&nbsp; </span>After
+his
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        initial attempt<span style="">&nbsp; </span>(“It’s an algorithm
+        that’s well...iterated),<span style="">&nbsp; </span>Valentine
+        provides us with a perfectly reasonable explanation:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 1in;"><font face="Times New Roman" size="3">You have some x-and-y equation.<span style="">&nbsp; </span>Any value for x gives you a value for
+        y.<span style="">&nbsp; </span>So you put a dot where it’s
+        right for both x and y.<span style="">&nbsp; </span>Then you
+        take the next value of x which gives you another value for y any
+        when you’ve done that a few times you join up the dots and
+        that’s your graph of whatever the equation is.<br>
+        <span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">We
+illustrate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the process of iteration by looking at y = x<sup>2</sup><span style="">&nbsp; </span>(f(x) = x<sup>2</sup>) with various
+        starting/initial values for x.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <table style="border: medium none ; width: 7.7in; border-collapse:
+      collapse;" width="739" border="1" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td style="border: 0.5pt solid windowtext; padding: 0in 5.4pt;
+            width: 2.05in;" width="197" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = 0.<span style="">&nbsp;</span></font></p>
+            <p class="MsoTitle" style="text-align: left;" align="left"><font face="Times New Roman" size="3">x<span style="">&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;&nbsp;</span>y<o:p> </o:p>
+              </font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">0<span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0<br>
+                0<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;</span>0</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                1</font></p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 181.8pt;" width="242" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = -1</font></p>
+            <p class="MsoNormal" style=""><b><font face="Times New
+                  Roman" size="3">x<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  </span><span style="">&nbsp;</span>y<o:p> </o:p> </font>
+              </b></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">-1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1<br>
+                1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p>table 2</font> </p>
+          </td>
+          <td style="border-style: solid solid solid none; border-color:
+            windowtext windowtext windowtext -moz-use-text-color;
+            border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0in 5.4pt;
+            width: 225pt;" width="300" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = .5</font></p>
+            <p class="MsoNormal"><b><font face="Times New Roman" size="3">x<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  </span>y<o:p> </o:p> </font> </b></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1026" style='position:absolute;
+
+
+   flip:x;z-index:1' from="30.6pt,6.7pt" to="111.6pt,15.7pt">
+
+
+   <v:stroke endarrow="block"/>
+
+
+  </v:line><![endif]--> 0.5<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.25</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1029" style='position:absolute;
+
+
+   flip:x;z-index:4' from="30.6pt,10.9pt" to="102.6pt,19.9pt">
+
+
+   <v:stroke endarrow="block"/>
+
+
+  </v:line><![endif]--> 0.25<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.0625</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1027" style='position:absolute;
+
+
+   flip:x;z-index:2' from="66.6pt,6.1pt" to="102.6pt,15.1pt">
+
+
+   <v:stroke endarrow="block"/>
+
+
+  </v:line><![endif]-->0.0625<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.00390625</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1028" style='position:absolute;
+
+
+   flip:x;z-index:3' from="66.6pt,10.3pt" to="111.6pt,19.3pt">
+
+
+   <v:stroke endarrow="block"/>
+
+
+  </v:line><![endif]--> 0.00390625<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+                </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.52588e-05</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1030" style='position:absolute;
+
+
+   flip:x;z-index:5' from="57.6pt,5.5pt" to="111.6pt,23.5pt">
+
+
+   <v:stroke endarrow="block"/>
+
+
+  </v:line><![endif]--> 1.52588e-05<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>2.32831e-10</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">2.32831e-10<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>5.42101e-20</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">5.42101e-20<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>2.93874e-39</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">2.93874e-39<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>8.63617e-78</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">8.63617e-78<span style="">&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>7.45834e-155</font></p>
+            <p class="MsoNormal"><font face="Times New Roman" size="3">7.45834e-155<span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>5.56268e-309</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">table 3</font></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-style: none solid solid; border-color:
+            -moz-use-text-color windowtext windowtext; border-width:
+            medium 0.5pt 0.5pt; padding: 0in 5.4pt; width: 2.05in;" width="197" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = .99</font></p>
+            <p class="MsoNormal" style=""><b><font face="Times New
+                  Roman" size="3"><span style="">&nbsp;&nbsp; </span>x<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  </span>y<o:p> </o:p> </font> </b></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.99<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.9801</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.9801<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.960596</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.960596<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.922745</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.922745<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.851458</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.851458<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.72498</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.72498<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.525596</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.525596<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.276252</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.276252<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.076315</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.076315<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>0.00582398</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">0.00582398<span style="">&nbsp;&nbsp;&nbsp; </span>3.39187e-05</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">3.39187e-05<span style="">&nbsp;&nbsp; </span>1.15048e-09</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.15048e-09<span style="">&nbsp;&nbsp; </span>1.3236e-18</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.3236e-18<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.75192e-36</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">table 4</font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 181.8pt;" width="242" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = 1.01</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3"><b><span style="">&nbsp;&nbsp;&nbsp; </span>x<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  </span>y<br>
+                </b>1.01<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.0201</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.0201<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.0406</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.0406<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.08286</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.08286<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.17258</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.17258<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.37494</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.37494<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.89046</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.89046<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>3.57385</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">3.57385<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>12.7724</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">12.7724<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>163.134</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">163.134<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>26612.6</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">26612.6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>7.08229e+08</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">7.08229e+08<span style="">&nbsp;&nbsp; </span>5.01588e+17</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">5.01588e+17<span style="">&nbsp;&nbsp; </span>2.5159e+35</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">table 5</font></p>
+          </td>
+          <td style="border-style: none solid solid none; border-color:
+            -moz-use-text-color windowtext windowtext
+            -moz-use-text-color; border-width: medium 0.5pt 0.5pt
+            medium; padding: 0in 5.4pt; width: 225pt;" width="300" valign="top">
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">Initial value x = 2</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>4</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>16</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">16<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>256</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">256<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>65536</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">65536<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>4.29497e+09</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">4.29497e+09<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.84467e+19</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.84467e+19<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>3.40282e+38</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">3.40282e+38<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.15792e+77</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">1.15792e+77<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </span>1.34078e+154</font></p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p> </font> </p>
+            <p class="MsoNormal" style=""><font face="Times New Roman" size="3">table 6</font></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="MsoNormal" style=""><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">We first
+        need a little terminology.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Definition.<o:p>
+          </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Let y =
+        f(x). Let x<sub>0</sub> be a given initial value for an
+        iterative process.<span style="">&nbsp;&nbsp; </span>The set {
+        x<sub>0</sub>, y<sub>1</sub>, y<sub>2, </sub>y<sub>3...}<span style="">&nbsp; </span></sub>where<sub> </sub><span style="">&nbsp;</span>y<sub>1=</sub>f(x<sub>0</sub>)<sub>,<span style="">&nbsp; </span></sub>y<sub>2</sub>=f(y<sub>1</sub>),<span style="">&nbsp; </span>y<sub>3</sub> = f(y<sub>2</sub>) ....y<sub>n+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </sub>= f(y<sub>n</sub>)...<span style="">&nbsp;&nbsp; </span>is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        called the <i>orbit of x<sub>0</sub></i><sub>.<o:p> </o:p></sub></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Let y = x<sup>2</sup>.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">x<sub>0</sub>
+        = 0<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>orbit(0) = {0}<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>(table 1)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">x<sub>0</sub>=-1,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>orbit(1) = {-1,1}<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>(table 2)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">x<sub>0</sub>
+        = .5 <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>orbit(.5) = {.5,..25,.0625,.00390625.....}<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>(table 3)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">x<sub>0</sub>
+        = 2 <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>orbit(2) = { 2,4,16,256,65536.....}<span style="">&nbsp;
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>(table 5)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">It is not
+        too difficult to see that for y= x<sup>2</sup>, if the starting
+        point in an iteration<span style="">&nbsp; </span>(x<sub>0</sub>)<span style="">&nbsp; </span>is greater than 1 ( see table 5) or
+        less than –1 then orbit (x<sub>0</sub>)<span style="">&nbsp; </span>“escapes”<span style="">&nbsp; </span>to infinity, that is the orbit is
+        unbounded.<span style="">&nbsp; </span>For starting a point x<sub>0</sub>
+        in the interval (-1,1), orbit(x<sub>0</sub>) gets closer and
+        closer to 0 .<span style="">&nbsp; </span>In this case we say 0
+        is an “attractor” and the orbit is bounded (tables 1,3,5).<span style="">&nbsp; </span>If the starting point is x<sub>0</sub>
+        = 1 or x<sub>0</sub> = -1, then 1 is an attractor (table 2).</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The set
+        of all points with unbounded orbits is called the <i>escape set</i>
+        for f(x).<span style="">&nbsp; </span>The set of points with
+        bounded orbits is called the<i> prisoner set</i> for f(x).</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">In our
+        simple example, if<span style="">&nbsp; </span>y = x<sup>2</sup>,
+        the escape set is the set of all numbers greater than 1 or less
+        than –1; the prisoner set is the set of all numbers between 1
+        and –1 inclusive.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1034" style='position:absolute;
+
+
+ z-index:9' from="234pt,14.4pt" to="234pt,23.4pt"/><![endif]--> <span style="position: absolute; z-index: 8; margin-left: 311px;
+          margin-top: 18px; width: 3px; height: 15px;"><img src="./LClab1_files/lab1_006.gif" v:shapes="_x0000_s1034" width="3" height="15"></span><i><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </span>escape set<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span></i><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b>-1</b>
+        <span style="">&nbsp;&nbsp;&nbsp;</span><i>prisoner set</i> <span style="">&nbsp;&nbsp;</span><b>1</b><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><i>escape set<o:p> </o:p></i></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><!--[if gte vml 1]><v:line id="_x0000_s1031" style='position:absolute;
+
+
+ z-index:6' from="18pt,.6pt" to="5in,.6pt">
+
+
+ <v:stroke startarrow="block" endarrow="block"/>
+
+
+</v:line><v:line id="_x0000_s1032" style='position:absolute;z-index:7' from="2in,.6pt"
+
+
+ to="2in,.6pt"/><v:line id="_x0000_s1033" style='position:absolute;z-index:8'
+
+
+ from="2in,.6pt" to="2in,9.6pt"/><![endif]--> <span style="position:
+          absolute; left: 23px; top: -5px; width: 459px; height: 20px;
+          z-index: 5;"><img src="./LClab1_files/lab1_008.gif" v:shapes="_x0000_s1031
+            _x0000_s1032 _x0000_s1033" width="459" height="20"></span><br>
+        <br>
+        <o:p></o:p></font></p>
+    <font face="Times New Roman" size="3"> <br style="" clear="all">
+    </font>
+    <h1><span style=""><font face="Times New Roman" size="3"><b>Complex
+            Numbers<o:p> </o:p></b> </font></span></h1>
+    <p class="MsoNormal"><b style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The story
+        becomes a bit more interesting when we consider complex rather
+        than real numbers.<span style="">&nbsp; </span>Recall that
+        complex numbers have two parts – a real part and an imaginary
+        part.<span style="">&nbsp; </span>We would write a complex
+        number z = x+y<i style="">i</i>, where x and y are real numbers
+        and <i style="">i</i> is the square root of –1.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Please see <a href="http://www.purplemath.com/modules/complex.htm">http://www.purplemath.com/modules/complex.htm</a>
+        for a very brief and simple introduction to complex numbers.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Note:
+        Even if you have never heard of complex numbers, you can still
+        write the code for the exercises below, using the hints and
+        examples given below.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Let’s use
+        the same quadratic function, w = z<sup>2</sup><span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>(f(z) = z<sup>2</sup>)<span style="">&nbsp; </span>but
+        now<span style="">&nbsp; </span>assume that z is a complex
+        variable of the form z = x + iy.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Suppose
+        that we iterate with initial value z<sub>0</sub> = i</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp; </span>z<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>w = f(z)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;</span>i<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>-1<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">-1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;</span>1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;</span>1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>1 etc.<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Here the
+        orbit(i)<span style="">&nbsp; </span>is {i,-1,1,1,1,1.......}.<span style="">&nbsp; </span>Consequently, i is a member of the
+        prisoner set.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Now
+        suppose that the initial value is z = 1+ i</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">z<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>w<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>|w| <o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">1+i<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>(1+i)(1+i) =
+        2i<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>2<o:p> = sqrt(0^2 + 2^2)</o:p> </font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">2i<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>4<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">-4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>16<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>16<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">In this
+        case, the orbit(1+i) = {1+i,2i,-4, 16, 256...}<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Notice
+        with initial value, z <sub>0 </sub>= 1 + i, orbit(z<sub>0</sub>)
+        escapes to infinity. (Look at the absolute values.).<span style="">&nbsp; </span>Thus, 1+i is a member of the escape
+        set.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">With
+        those ideas in mind, now describe the Julia set.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Let f(z)
+        = z<sup>2</sup> + c , where z is a complex variable and c is
+        some complex constant.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        escape set and prisoner set for f(z)<span style="">&nbsp; </span>together
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        cover the complex plane and are complementary.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The <i>Julia Set</i> is the boundary of the escape set.<span style="">&nbsp; </span>In other words, the Julia set is the
+        boundary of the set of starting points z<sub>0</sub> whose
+        orbits escape to infinity.</font></p>
+    <p class="MsoNormal">&nbsp;</p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          5.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Write a
+        computer program which draws the Julia set for w = z<sup>2</sup>.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Color all
+        points in the prisoner set black. Vary the colors in the escape
+        set depending on how fast the iterations go to infinity.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><b>Hints:</b></font></p>
+    <p class="MsoNormal">&nbsp;</p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        following theorem will be helpful:</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><b>Theorem</b>.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Let<span style="">&nbsp; </span>f(z) = z<sup>2</sup> + c. Let z<sub>0</sub>
+        be an initial point in an iterative process. If any point in
+        orbit(z<sub>0</sub>) has absolute value greater than max(|c|, 2)
+        then z<sub>0</sub> is in the escape set.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">In other
+        words, if the absolute value of <i>any one point</i> in orbit(z<sub>0</sub>)
+        exceeds max(|c|,2), then the orbit escapes to infinity, it is
+        unbounded, and z<sub>0</sub><sup> </sup>is in the escape set.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">1.
+        Download the <i><a href="http://web.stonehill.edu/compsci/LC/Complex.txt">Complex</a>&nbsp;</i>
+        class that manipulates complex numbers.<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+        </span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">2.<span style="">&nbsp; </span>Write your function f(z):<br>
+        <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Complex<span style="">&nbsp; </span>f(Complex z)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><br>
+        3. Decide what part of the plane you will examine, perhaps the
+        rectangle defined by the<span style=""> </span>points –2-2i and
+        2+2i. So define constants like lower_x = -2, lower_y = -2</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">upper_x =
+        2, upper_y = 2.<span style="">&nbsp; </span>(Strictly speaking,
+        to use our theorem, we should choose a circle with radius 2, but
+        these extra points will not make a difference in our picture)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">You will
+        have to use <i>each</i> of these points as a starting point,
+        but there are an infinite number <span style=""></span>so
+        obviously, you cannot use every single point in this region of
+        the complex plane. Instead, loop through the points with a loop
+        such as:</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span><span style="">&nbsp; </span>for (double x = lower<i>_x;
+          x &lt; </i>upper_x; x += .005)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>{</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>for (double y = l_lower_y; y &lt; upper_y; y += .005)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>{</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">This will
+        generate starting points points beginning in the lower left
+        corner of the rectangular region, (-2, -2), upwards and then to
+        the right, ending in the upper right corner at (2,2). It will
+        plot 801*801 distinct points.<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">4.<span style="">&nbsp; </span>Given a starting point, you need to
+        determine whether it is in the escape set or the prisoner set.
+        Obviously, you need the orbit of the point.<span style="">&nbsp;
+        </span>We need to examine the size (absolute value) of each
+        point in the orbit.<span style="">&nbsp; </span>If the size of
+        a point exceeds max(|c|, 2,) we know it is in the escape set and
+        we can stop iterating.<span style="">&nbsp;&nbsp; </span>On the
+        other hand, let’s set a maximum number of iterations, say Maxi =
+        50.<span style="">&nbsp; </span>If the orbit does not<span style="">&nbsp; </span>escape to infinity after Maxi
+        iterations, we will assume it is in the prisoner set.<span style="">&nbsp; </span>(Of course, there is always the chance
+        of error, here).<span style=""><br>
+        </span></font></p>
+    <font face="Times New Roman" size="3"><o:p> </o:p></font><font face="Times New Roman" size="3">5. Iterate.<span style="">&nbsp; </span>If
+
+
+
+
+
+
+
+
+
+      a value in the orbit has absolute value max(|c|, 2), the starting
+      point is in the escape set<span style=""> </span>and stop
+      iterating.<span style="">&nbsp; </span>If the number of
+      iterations reaches Maxi, assume the starting point is in the
+      prisoner set.</font>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">6.<span style="">&nbsp; </span>Here is the fun part. Color the
+        starting point.<span style="">&nbsp; </span>If it is in the
+        prisoner set, color it black.<span style="">&nbsp; </span>If it
+        is in the escape set, color it with RGB values based on the
+        number of iterations it took before “escaping”.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>For example,</font> </p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">If a point is in the prisoner set, the
+        number_of_iterations<span style="">&nbsp; </span>is Maxi so</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Maxi – number_of_iterations = 0, and 0 gives black.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>If a point is in the escape set, it never completed all
+        Maxi iterations</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>so<span style="">&nbsp; </span>Maxi-number_of_iterations
+        &gt; 0</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>The fewer the number of iterations, the bigger this
+        number</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>So, in coloring points:</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span></p>
+    <p class="MsoNormal" style="margin-left: 1in;"><span style="">&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </span><font face="Times New Roman">1. int count = Maxi –
+        number_of_iterations;<br style="">
+        <br style="">
+      </font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </font></span><font face="Times New Roman">2. Now let count
+        determine the RGB combination</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </font></span><font face="Times New Roman">you can do this any
+        way you like as long as</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </font></span><font face="Times New Roman">red = 0, green = 0,
+        blue = 0 for prisoner points</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman"><span style="">&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>You
+can
+use
+a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        fraction for each color.</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman"><span style="">&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>float&nbsp; red = (count
+        * 24<span style="">&nbsp; </span>%<span style="">&nbsp;&nbsp; </span>256)/256.0f;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //<font color="#ff0000"><b> the f makes 256.0 a float, rather
+            than a double</b></font></font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman">float green = (count * 6<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>%<span style="">&nbsp;&nbsp; </span>256)/256.0f;</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          &nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman">flaot
+blue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        = (count * 13<span style="">&nbsp;&nbsp; </span>%<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>256)/256.0f;</font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span><font face="Times New Roman">Color color = new Color(red, green,
+        blue); // <font color="#ff0000"><b>parameters are float</b></font></font></p>
+    <p class="MsoNormal"><span style=""><font face="Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span></p>
+    <p class="MsoNormal"><font face="Times New Roman"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>3. You can now uses the Graphics method setColor(Color
+        color)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman"><o:p> &nbsp;</o:p>
+      </font></p>
+    <p class="MsoNormal"><font face="Times New Roman">If<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>count <span style="">&nbsp;</span>== 0 then<span style="">&nbsp; </span>red == 0, green== 0 and blue = =0 –--
+        the point will be black</font></p>
+    <p class="MsoNormal"><font face="Times New Roman">If if took only 2
+        iterations to escape, and Maxi is 50, count <span style="">&nbsp;</span>will
+be
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        48</font></p>
+    <p class="MsoNormal"><font face="Times New Roman">red, green and
+        blue will vary accordingl</font>y.<font face="Times New Roman" size="3"><o:p>&nbsp;</o:p></font> </p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">7. Note
+        for plotting correct graphics:&nbsp; When you set up your
+        window, remember that pixel (0,0) is the upper left corner, not
+        the middle of the screen. Also, moving down <i>increases</i>
+        the y-value of a pixel.<span style="">&nbsp; </span>This is
+        very important.<span style="">&nbsp; </span>You must figure out
+        how to color the correct pixel that corresponds to you point in
+        the complex plane. For example, assuming that your graphics
+        frame is 800 by 800, then the starting point (-2, -2) is the
+        graphic pixel (0, 800), and the point (2, 2) is (800, 0).<br>
+      </font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          6.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        picture from the previous exercise was OK but not too exciting.<span style="">&nbsp; </span>If we vary the constant c in the
+        function f(z) = z<sup>2</sup> + c, we can get some pretty neat
+        fractals.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Repeat
+        the previous exercise with</font></p>
+    <p class="MsoNormal" style="margin-left: 0.75in; text-indent:
+      -0.25in;"><font face="Times New Roman" size="3">a.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>c
+        = .3 - .4i</font></p>
+    <p class="MsoNormal" style="margin-left: 0.75in; text-indent:
+      -0.25in;"><font face="Times New Roman" size="3">b.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>c
+        = -1 + 0i</font></p>
+    <p class="MsoNormal" style="margin-left: 0.75in; text-indent:
+      -0.25in;"><font face="Times New Roman" size="3">c.<span style="font-family: &quot;Times New Roman&quot;; font-style:
+          normal; font-variant: normal; font-weight: normal; font-size:
+          7pt; line-height: normal; font-size-adjust: none;
+          font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Try
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        your own constant c.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          7.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">The
+          Mandlebrot Set.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Consider
+        the collection of all complex functions of the form<span style="">&nbsp; </span>f(z) = z<sup>2</sup> + c, where c is a
+        complex constant. <b><span style="">&nbsp;</span></b><span style="">&nbsp;</span>Iterate each of these function with
+        starting point z<sub>0</sub> = 0.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">For
+        example,</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">if c = 0,<span style="">&nbsp; </span>f(z) = z<sup>2</sup><span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>---<span style="">&nbsp; </span>Orbit(0) = {
+        0,0,0,0,...} – bounded,</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">if c = i,<span style="">&nbsp;&nbsp; </span>f(z) = z<sup>2</sup> + i<span style="">&nbsp; </span>Orbit(0) = { i, i-1, -2i, 4+i....} --
+        unbounded</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">if c =<span style="">&nbsp; </span>1+ i , f(z) = z2 = (1+ i), Orbit (0) =
+        { 1 + i, 1 + 3i, -7-7i...} – unbounded</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">For
+          each constant c and function<span style="">&nbsp; </span>f(z)
+          = z<sup>2</sup> + c, if Orbit(0) is bounded, then c is a
+          member of the Mandlebrot set.<span style="">&nbsp; </span><o:p>
+          </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Write a
+        program to draw the Mandlebrot set over a portion of the plane.<span style="">&nbsp; </span>Make points in the Mandlebrot set
+        black. Vary the colors of the other points as in the Julia set
+        program.<span style="">&nbsp;&nbsp; </span>This can be done
+        very much like the previous problem—just some very minor
+        adjustments.<span style="">&nbsp; </span>You will get some
+        really incredible pictures!<br>
+      </font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">In class,
+        we will show you a program called <a href="https://github.com/xaos-project/XaoS/releases/tag/release-4.1">Xaos</a>
+        that allows dynamic zooming in and out to explore the
+        intricacies of the Mandelbrot set.<br>
+      </font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Part
+          II : Valentine<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Valentine,
+too,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        has an interest in things mathematical and his interests are not
+        unlike Thomasina’s.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">What she is doing is everytime she works out
+        a value for y, she’s using <i>that</i> as her next value for x.<span style="">&nbsp; </span>And so on.<span style="">&nbsp; </span>Like
+
+
+
+
+        a feedback.<span style="">&nbsp; </span>She’s feeding the
+        solution back into the equation, and then solving it again.<span style="">&nbsp; </span>Iteration, you see.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">And that’s surprising, is it?</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">Well, it is a bit.<span style="">&nbsp; </span>It’s a
+        technique I’m using on my grouse numbers, and it hasn’t been
+        around for much longer than twenty years.</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">...........................</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent2" style="margin-left: 0.5in;"><font face="Times New Roman" size="3">Actually, I’m doing it from the
+        other end.<span style="">&nbsp; </span>She started with an
+        equation and turned it into a graph.<span style="">&nbsp; </span>I’ve
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        got a graph—real data—and I’m trying to find an equation that
+        would give the graph if you used it in the way she’s used hers.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">What for?</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">It’s how you look at population changes in biology.<span style="">&nbsp; </span>Goldfish in a pond, say.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>This year there are x goldfish.<span style="">&nbsp; </span>Next
+year
+they’ll
+be
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        y goldfish.<span style="">&nbsp; </span>Some get born, some get
+        eaten by herons, whatever. Nature manipulates x and turns it
+        into y.<span style="">&nbsp; </span>The y goldfish is your
+        starting population for the following year.<span style="">&nbsp;
+        </span>Just like Thomasina.<span style="">&nbsp; </span>Your
+        value for y becomes your next value for x.<span style="">&nbsp;
+        </span>The question is: what is being done to x? What is the
+        manipulation?<span style="">&nbsp; </span>Whatever it is it can
+        be written down as mathematics.<span style="">&nbsp; </span>It
+        is an algorithm.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">It can’t be the same every year.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">The details change. <span style="">&nbsp;</span>You
+        can’t keep tabs on everything.<span style="">&nbsp; </span>But
+        it isn’t necessary to know the details. When they are all put
+        together, it turns out the population is obeying a mathematical
+        rule.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">The goldfish are?</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">Yes, No.<span style="">&nbsp; </span>The numbers.<span style="">&nbsp; </span>It’s not about the behavior of the
+        fish.<span style="">&nbsp; </span>It’s about the behavior of
+        the numbers.<span style="">&nbsp; </span>This thing works for
+        any phenomenon which eats its own numbers—measles epidemics,
+        rainfall averages, cotton prices, its a natural phenomenon in
+        itself. Spooky</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">Does it work for grouse?</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">I don’t know yet.<span style="">&nbsp; </span>I mean
+        it does, undoubtedly, but it’s hard to show.<span style="">&nbsp;
+
+
+
+
+        </span>There’s more noise with grouse.</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Noise?</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">Distortions. Interference. Real data is messy.<span style="">&nbsp; </span>There’s a thousand \acres of moorland
+        that had grouse on it, always did until 1930.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>But nobody counted the grouse.<span style="">&nbsp; </span>But
+burning
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        the heather interferes, it improves the food supply.<span style="">&nbsp; </span>A good year for foxes interferes the
+        other way, they eat the chicks.<span style="">&nbsp; </span>And
+        then there’s the weather.<span style="">&nbsp; </span>It’s very
+        very noisy out there.<span style="">&nbsp; </span>Very hard to
+        spot the tune.<span style="">&nbsp; </span>Like a piano in the
+        next room, it’s playing your song but unfortunately it is out of
+        whack, some of the strings are missing, and the pianist is tone
+        deaf and drunk.—I mean the <i>noise</i>! Impossible!</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3">What do you do?</font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoBodyTextIndent" style="margin-left: 0in;"><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">You start guessing what the tune might be.<span style="">&nbsp; </span>You try to pick it out of the noise.
+        You try this, you try that, you start to get something.<span style="">&nbsp; </span>It’s half-baked but you start putting
+        in notes that are missing or not quite the right notes.....and
+        bit by bit ( <i>He starts to dumdi-da to the tune of ‘Happy
+          Birthday’) </i>Dumdi-dum-dum, dear Valentine, dumdi-dum-dum
+        to you—the lost algorithm.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Valentine
+        is interested in predicting the population of grouse.<span style="">&nbsp; </span>He has data from the past and hopes to
+        use this data to develop a mathematical model (an equation) to
+        predict the future.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Most
+        likely, Valentine was using the <i style="">logistic equation</i>
+        to model his grouse population.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        logistic equation is one of the most commonly used models in
+        population biology.</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">if x<sub> </sub><span style="">&nbsp;</span>is
+the
+size
+of
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        a<span style="">&nbsp; </span>population at generation n and y<span style="">&nbsp;&nbsp; </span>at generation n+1 then the
+        logistic equation predicts that</font><span style=""><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></span></p>
+    <p class="MsoBodyTextIndent" style=""><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>y = rx(1-x)</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">where r is the <i>growth rate</i>.<span style="">&nbsp; </span>Here, x is some fraction of the
+        maximum population.</font></p>
+    <p class="MsoNormal" style="margin-left: 0.5in;"><font face="Times
+        New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">For
+        example, suppose that the rate of growth is 1.5.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Now, look at the logistic equation (after expanding the
+        multiplication)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>y =<span style="">&nbsp; </span>1.5x – 1.5x<sup>2<o:p> </o:p></sup></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        equation predicts that the size of<span style="">&nbsp; </span>the
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        next generation<span style="">&nbsp; </span>will be one and
+        one-half times<span style="">&nbsp; </span>the size of the
+        previous generation (1.5x)<span style="">&nbsp; </span>minus a
+        certain number (1.5x<sup>2</sup>) that have died or left the
+        population for various reasons.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Suppose
+        some environment can hold at most 1000 goldfish.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Suppose
+        that initially, there are 500 goldfish<span style="">&nbsp; </span>–
+        then,<span style="">&nbsp; </span>x = .5.<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Further suppose, from experimental data we estimate the
+        growth rate of the population is r = 1.5.<span style="">&nbsp; </span>Then
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        we might predict the goldfish population as</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">time<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>population (
+        as a fraction of the maximum population)</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">0<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.500</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.375</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.351563</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">3<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.341949</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.33753</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">5<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.335405</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.334363</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">7<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333847</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">8<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.33359</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">9<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333461</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">10<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333397</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">11<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333365</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">12<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333349</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">13<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333341</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">14<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333337</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">15<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333335</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">16<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333334</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">17<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333334</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">18<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333334</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">19<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333333</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">20<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.333333</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Notice
+        that the population settles down or becomes stable.<span style="">&nbsp;&nbsp; </span>So in twenty generations, the
+        death rate and birth rate are in equilibrium. There are about
+        333 goldfish in the pond.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Now
+        suppose that<span style="">&nbsp; </span>r = 3.2.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Here is what happens</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">0<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.500</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.8</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.512</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">3<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.799539</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.512884</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">5<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.799469</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.513019</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">7<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.799458</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">8<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.51304</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">9<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.799456</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">10<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.513044</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">11<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.799456</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">12<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>0.513044</font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">&nbsp;<o:p>
+          </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">The
+        population is periodic.&nbsp; That is,&nbsp; 0.799 then 0.513
+        then 0.799 then 0.513 etc. (Of course these are
+        approximations).&nbsp; <br>
+        You can confirm that the result when r = 3.5 is a cycle of
+        length four.<o:p> <br>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">It has
+        been shown that there are 4 different scenarios:</font></p>
+    <ol style="margin-top: 0in;" start="1" type="1">
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">The population can become extinct</font></li>
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">The population can become stable ( as in the first
+          example)</font></li>
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">The population can become periodic (as in the second
+          example)</font></li>
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">The population can become <b><i>chaotic</i></b>.<span style="">&nbsp; </span>Here the population takes on values
+          with no apparent order.<span style="">&nbsp;&nbsp; </span>The
+          system becomes aperiodic—the opposite of periodic.(above).</font></li>
+    </ol>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Thus a
+        very simple mathematical model can give results that are<span style=""> </span><i>unpredictable</i>. We get seemingly
+        random results from “ordinary” equations.<span style="">&nbsp; </span>This
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        is one of the characteristics of chaos theory</font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          8:<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">As the
+        growth rate, <i>r</i>, in the logistic equation increases, the
+        population goes from stable to chaotic. At 3.5 the population
+        still cycles, so the chaos point occur after that. You should
+        try various values of <i>r </i>incrementing by 0.01 each time.<br>
+      </font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Write a
+        program which experimentally finds the approximate value
+        of&nbsp; <i>r</i><span style="">&nbsp; </span>(0 &lt; <i>r</i>
+        &lt; 5 ) where the population becomes chaotic.<span style="">&nbsp;
+
+          For each <i>r, u</i>se <i>x</i> = .5 as the initial value of
+          <i>x</i>.&nbsp; Your program should print out about 20 values
+          of <i>x</i> for various values of <i>r</i>, looking for
+          chaos.&nbsp; You need not write any methods to find the chaos,
+          just judge with your eyes.&nbsp; You are trying to find the
+          point at which the <i>x</i>'s look chaotic.&nbsp; This will
+          happen at some <i>r </i>larger than 3.5.<br>
+        </span></font></p>
+    <span style="font-family: Times New Roman;"> </span>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          9.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Again, we
+        look at the logistic equation:</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>y = rx(1-x)<span style="">&nbsp;&nbsp;&nbsp; </span>0&lt;x&lt;1</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><span style="">For each r, your program should run 100 or so
+          iterations of the formula starting with an initial value of x
+          = .5, and for the next few hundred iterations, you should plot
+          a graph of the values of x.&nbsp; Your graph should plot r on
+          the x-axis, and the succesive values of x on the y-axis.&nbsp;
+          As you did in previous exercises, scale the val</span>ues of r
+        (between 0 and 5) to your panel's pixels appropriately.&nbsp; <br>
+      </font> </p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">You
+        should be able to experimentally deduce the point of chaos, by
+        examining the graph you plot.</font></p>
+    <p class="MsoNormal" style="margin-right: -0.25in;"><font face="Times New Roman" size="3">a.Plot a graph such that the
+        horizontal axis is indexed by r in increments of .005 ( 0 &lt;=
+        r &lt;= 4).<span style="">&nbsp; </span>Let vertical points
+        represent<span style="">&nbsp; </span>population<span style="">&nbsp;
+
+
+
+
+        </span>values <i>after the first 100 iterations</i>.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <ol style="margin-top: 0in;" start="1" type="1">
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">Let x= .5 ( initial population).<span style="">&nbsp;
+          </span>This is arbitrary.</font></li>
+      <li class="MsoNormal" style=""><font face="Times New Roman" size="3">For (double<span style="">&nbsp; </span>r = 0; r
+          &lt;= 4.0; r += .005)<br>
+          Iterate 100 generations.<span style="">&nbsp; </span>One of
+          the above four conditions will have occurred.<br>
+          <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Don’t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          plot these points.<span style="">&nbsp;</span><br>
+          For generation 101 to 500</font></li>
+    </ol>
+    <p class="MsoNormal" style="margin-left: 1in;"><font face="Times New
+        Roman" size="3">if y is the population size , plot a pixel (r,
+        y)</font></p>
+    <p class="MsoNormal">&nbsp; </p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Remember:
+        The upper left corner of the screen is (0,0), and y will be a
+        fraction so you will need to do some scaling to get a picture.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">b.
+        Explain the meaning of the graph.<span style="">&nbsp; </span>Can
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        you see any connection with fractals?<span style="">&nbsp; </span>Look
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        closely at your graph.<span style="">&nbsp;</span></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">c. Among
+        other things, chaos theory is concerned with the idea that it is
+        possible to get random results from seemingly simple
+        deterministic equations.<span style="">&nbsp; </span>Chaos
+        theory also searches for order in the mist of<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>randomness. Look at your graph closely.<span style="">&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Is there any order within the sections of apparent
+        randomness?<span style="">&nbsp;&nbsp;</span></font></p>
+    <br>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">The
+          Butterfly Effect.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">If a
+        Butterfly is flapping its wings in London, could it cause a
+        hurricane in Miami?<span style="">&nbsp;&nbsp; </span>The
+        Butterfly effect is the tendency of a system to be very
+        sensitive to initial conditions.<span style="">&nbsp; </span>Slight
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        changes in the initial conditions, can cause huge changes to the
+        system over time.</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">See <a href="http://www.pha.jhu.edu/~ldb/seminar/butterfly.html">http://www.pha.jhu.edu/~ldb/seminar/butterfly.html</a></font></p>
+    <p><font face="Times New Roman" size="3">In the early 1960’s Edvward
+        Lorenz was experimenting with weather predictions using computer
+        models.<span style="">&nbsp; </span>When Lorenz tried to
+        reproduce his experiment using the same data, he found that his
+        results were drastically different from what he had expected.<span style="">&nbsp; </span>How could this be?<span style="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>What happened was that<span style="">&nbsp; </span>Lorenz
+
+
+
+
+
+
+
+
+
+
+
+
+
+        had rounded his numbers.<span style="">&nbsp; </span>Instead of
+        using, say, 123456 he used .123.<span style="">&nbsp; </span>Even
+
+
+
+
+
+
+
+
+
+
+
+
+
+        so, he would have expected the results of the second experiment
+        to differ ever so slightly from the first.<span style="">&nbsp;
+        </span>This was not the case.<span style="">&nbsp; </span>What
+        can we conclude?<span style="">&nbsp;&nbsp; </span>Since the
+        preciseness of<span style="">&nbsp; </span>our measurements is
+        limited and<span style="">&nbsp; </span>some systems are
+        extremely sensitive to initial conditions, it is impossible to
+        predict the future in such a system.<span style="">&nbsp;</span></font></p>
+    <p><font face="Times New Roman" size="3">This is just the opposite
+        of a Newtonian, deterministic system.</font></p>
+    <p><font face="Times New Roman" size="3">CHLOE:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">The
+universe
+is
+deterministic,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        all right right.<span style="">&nbsp; </span>Just like Newton
+        said.<span style="">&nbsp; </span>It’s trying to be but the
+        only thing going wrong is people fancying people who aren’t
+        supposed to be part of the plan.</font></p>
+    <p><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p><font face="Times New Roman" size="3"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </span>Ah, the attraction that Newton left out.</font></p>
+    <p><font face="Times New Roman" size="3">&nbsp;<o:p> </o:p></font></p>
+    <p><b><font face="Times New Roman" size="3"><span style="">.............................................................<o:p>
+            </o:p></span></font></b></p>
+    <p><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">Does
+it
+work
+for
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        grouse?</font></p>
+    <p><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">I
+        don’t know yet.<span style="">&nbsp; </span>It does
+        undoubtedly, but it’s hard to show there’s more noise with
+        grouse.</font></p>
+    <p><font face="Times New Roman" size="3">HANNAH:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">Noise?</font></p>
+    <p><font face="Times New Roman" size="3">VALENTINE:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">Distortions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Interference.<span style="">&nbsp; </span>Real data is messy.<span style="">&nbsp;</span></font></p>
+    <p><b><font face="Times New Roman" size="3"><span style="">.........................................................................................<o:p>
+            </o:p></span></font></b></p>
+    <p><font face="Times New Roman" size="3">And , metaphorically,
+        Agustus remarks.</font></p>
+    <p><font face="Times New Roman" size="3">AGUSTUS:</font></p>
+    <p style="margin-left: 0.5in;"><font face="Times New Roman" size="3">Lord
+Byron?
+He
+claimed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        my hare, although my shot was the earlier!<span style="">&nbsp;
+        </span>He said I missed by a hare’s breath.</font></p>
+    <p><font face="Times New Roman" size="3">Initial conditions.<span style="">&nbsp; </span>An “imprecise measurement” -- off by a
+        hare's breath-- and Lord Byron is accused of murder. </font></p>
+    <p><b><font face="Times New Roman" size="3">Exercise 10.<o:p> </o:p></font></b></p>
+    <p><font face="Times New Roman" size="3">Demonstrate that the
+        logistic equation, f(x) = rx(1-x),<span style="">&nbsp; </span>can
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        be very sensitive to initial conditions for certain values of
+        r.&nbsp; Try a specific r and two values of x that are very
+        close to each other, and exhibit that the resulting iterations
+        for the two starting values become quite different.<br>
+      </font></p>
+    <p class="MsoNormal"><b><font face="Times New Roman" size="3">Exercise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          11.<o:p> </o:p></font></b></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">Write a
+        short 1-2 page essay explaining how the mathematics of Thomasina
+        and Valentine are related to the themes and plot of <i>Arcadia.</i><span style="">&nbsp; </span>Notice that T and V are interested in
+        different kinds of mathematics.</font><font face="Times New
+        Roman" size="3"><o:p></o:p></font> </p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;</font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><big><big><big>Enrichment:</big></big></big></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3"><small><small><big><big><big><font face="Times New Roman" size="3"><span style="font-size: 12pt; font-family: &quot;Times
+                      New Roman&quot;;"><a href="http://www.youtube.com/watch?v=iM0cR7qvmgY">The
+
+
+
+
+
+
+
+                        Math Behind Arcadia</a><br>
+                      <br>
+                    </span></font>To help you with your essay, we will
+                  screen highlights of the play, and you can watch this</big></big></big></small></small><small><small><big><big><big>
+                  Y</big></big></big></small></small><small><small><big><big><big>o</big></big></big></small></small><big><big><big><small><small>u</small></small></big></big></big><small><small><big><big><big>Tube
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <a href="http://www.youtube.com/watch?v=iM0cR7qvmgY">video</a>
+                  that discusses the mathematics in the play.</big></big></big></small></small></font></p>
+    <font face="Times New Roman" size="3"><big><big><big><small><small>You
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                can also download <a href="https://xaos-project.github.io/">Xaos</a> and/or
+                watch this cool <a href="https://www.youtube.com/watch?v=ZDU40eUcTj0">music
+
+
+
+
+
+
+
+                  video</a>, </small></small></big></big></big></font><font face="Times New Roman" size="3"><big><big><big><small><small><font face="Times New Roman" size="3"><big><big><big><small><small>to
+
+                            explore the Mandelbrot set.</small></small></big></big></big></font>
+              </small></small></big></big></big></font>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+    <p class="MsoNormal"><font face="Times New Roman" size="3">&nbsp;<o:p>
+        </o:p></font></p>
+  
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

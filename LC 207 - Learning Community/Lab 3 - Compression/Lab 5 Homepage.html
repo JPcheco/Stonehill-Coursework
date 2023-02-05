@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0051)http://web.stonehill.edu/compsci/LC/card_trick.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="Author" content="Shai Simonson">
+    <meta name="GENERATOR" content="Mozilla/4.77 [en] (Windows NT 5.0;
+      U) [Netscape]">
+    <title>card trick</title>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1038.0" data-gr-ext-installed="">
+    <center>
+      <h1>Stonehill College</h1>
+    </center>
+    <center>
+      <h1>Data Structures and Discrete Mathematics Learning Community</h1>
+    </center>
+    <center>
+      <h2>Professors Ralph Bravaco and Shai Simonson</h2>
+    </center>
+    <center>
+      <h2>Combinatorics and Data Structures Laboratory</h2>
+    </center>
+    <center>
+      <h2>A Combinatorial Card Trick</h2>
+    </center>
+    <h3> Introduction</h3>
+    <blockquote>In this lab, you will write some programs to discover
+      mathematical secrets behind a card trick.&nbsp; The card trick is
+      neat because it illustrates many of the fundamental concepts in
+      combinatorics and discrete math.&nbsp; You will also need to
+      discover the appropriate data structures for your explorations and
+      programs.&nbsp; More than just card trick, however, this lab
+      touches on the general problem of experimentally predicting the
+      time complexity of a depth first search backtracking algorithm,
+      when a mathematical prediction is too difficult.&nbsp; It also
+      touches on the relationship between graph theory, combinatorics,
+      and programming.<br>
+      <p>In class, Ralph and I performed the following trick for the
+        class.&nbsp; A magician asks someone from the audience to choose
+        five cards randomly from a standard deck.&nbsp; The person does
+        not show these cards to the magician, but does show them to the
+        magician’s accomplice.&nbsp; The magician’s accomplice then
+        looks at these cards, and shows four of them in a particular
+        order to the magician, who then immediately identifies the last
+        card, which remains hidden in the audience. </p>
+      <p>At first thought the trick seems impossible, because there are
+        only 4! = 24 ways to order four cards, and 24 pieces of
+        information is not enough to identify a unique value among the
+        possible 48 remaining cards (four are showing).&nbsp; However, a
+        more careful analysis reveals that the accomplice has more than
+        24 choices up his sleeve.&nbsp; The accomplice may choose which
+        four cards to show, as well as their order.&nbsp; There are
+        C(5,4) = 5 ways of choosing four cards from five, and 24 ways to
+        order each, hence the accomplice has 120 different choices of
+        information he can send.&nbsp; The hard part is that the
+        magician cannot easily decode this information and thereby
+        determine the corresponding missing card. </p>
+      <p>She can easily decode 24 pieces of information by just
+        examining the permutation of the four visible cards.&nbsp; We
+        could agree in advance on a numbering of the 24
+        permutations.&nbsp; For example, the permutations could be
+        ordered 1234, 1243, 1324, 1342, etc in so-called lexicographic
+        (like alphabetic but for numbers) order.&nbsp; The cards would
+        each be thought of as a number from 1 to 52.&nbsp; The ordering
+        of the four cards say 3, 7, 51, 43 would correspond to the
+        permutation 1243 and hence the number 2. </p>
+      <p>Using just this simple encoding/decoding scheme, the trick
+        could only be done with 28 cards.&nbsp; The magician and
+        accomplice simply communicate a number from 1 to 24 using the
+        ordering of the four cards.&nbsp; There are four cards showing,
+        so this number identifies which of the remaining 24 cards is
+        hidden.</p>
+    </blockquote>
+    <b>Program 1.</b>&nbsp; Write a program that helps the magician and
+    accomplice encode and decode <i>n</i>! permutations.&nbsp; Your
+    program should give an option to (D)ecode or (E)ncode.&nbsp; For
+    encoding, the input is two integers <i>m</i> and <i>n</i>, and the
+    output is the <i>m</i>th permutation of the elements {1, 2, …, <i>n</i>}.&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    For decoding, the input is <i>n</i> and a permutation<b> <i>p</i></b>,
+    and the output is<i> m</i>, where <i><b>p</b></i> is the <i>m</i>th
+
+
+
+    permutation of <i>n</i> elements.&nbsp; Your 1-1 correspondence
+    between permutations and integers should be in numerical
+    (lexicographic) order.&nbsp; It will be very helpful to have a "next
+    permutation" generator method.&nbsp; The method takes a permutation
+    and generates the next one in numerical order.&nbsp; For example,
+    1234 becomes 1243.&nbsp; And, 2314 becomes 2341.&nbsp; Here is a <a href="http://codesciencelove.wordpress.com/2013/07/15/finding-the-nth-lexicographic-permutation-of-0123456789/">link</a>
+    that explains how to code the "next permutation" method, and how to
+    call the method <i>m-</i>1 times in a loop in order to find the <i>m</i>th
+
+
+
+    permutation.
+    <p><b>Program 2.</b>&nbsp; Write a program that simulates the trick
+      for 28 cards.&nbsp; Since the magician's assistant can see 4 cards
+      out of the 28, the magician needs only communicate to the
+      assistant which of the 24 remaining cards is he secret card.<br>
+      &nbsp;&nbsp;&nbsp; a.&nbsp; Given a set of 5 cards from {1, 2, …
+      28}, the program should construct an ordered set of four
+      cards.&nbsp;&nbsp;&nbsp; Your program will need to choose which
+      set of four cards to order.&nbsp; A simple way is to discard the
+      lowest card and order the remaining four cards.&nbsp; The
+      discarded card can be at most 24, so the shown permutation can
+      identify it.&nbsp; For example, given {2, 4, 6, 8, 10}, your
+      program would return (4, 6, 10, 8) which is the second permutation
+      indicating that it is the second card (number 2) of the unseen 24
+      cards. <br>
+      &nbsp;&nbsp;&nbsp; b.&nbsp; Given an ordered set of four cards
+      from the set {1, 2, …, 28} the program should calculate the
+      missing card. For example, given the order (20, 22, 18, 19) you
+      would calculate that this is permutation number 17 and therefore,
+      the missing number is the 17th of the unseen 24 cards.&nbsp; Since
+      the magician always hides the lowest card, the 17th unseen card is
+      the card 17.<br>
+    </p>
+    <p>Your program needs to play both parts of the trick, and should
+      give an option to (C)onstruct the ordered 4 cards - part (a)
+      above, or to (R)ecover the missing card - part (b).<br>
+    </p>
+    <h3>Our Working Strategy</h3>
+    <blockquote>One method that allows the magician/accomplice to
+      encode/decode more than the obvious 24 pieces of information, is
+      to notice that among the five cards chosen from a standard deck of
+      52, there must be two of the same suit (due to the pigeonhole
+      principle).&nbsp; The first card shown by the accomplice is one of
+      these two cards, and the second is never shown.&nbsp; If we number
+      the cards in a suit from 1 to 13, and wrap around if necessary,
+      then given any two cards, there is always one which is six or less
+      below the other (again the pigeonhole principle – if they were
+      both 7 or more less than the other, then there needs to be 14
+      cards).&nbsp; The accomplice chooses the card that is 6 or less
+      below the other.&nbsp; For example, given the 3 and the Jack, we
+      choose the Jack.
+      <p>The accomplice then chooses an ordering of the last three cards
+        to encode a number from 1 to 6.&nbsp; The magician decodes this
+        number, (value 1-6) and adds it to the first card, in order to
+        recover the identity of the missing card. </p>
+      <p>Look <a href="http://web.stonehill.edu/compsci/Japan.htm">here</a> for an example.</p>
+    </blockquote>
+    <h3> The Challenge</h3>
+    <blockquote>The question you must explore is whether we can do this
+      trick with a larger deck of cards.&nbsp; This requires the
+      construction of better strategies.&nbsp; But what exactly is a
+      strategy?
+      <p>A strategy is an onto function from ordered sets of 4 cards to
+        unordered sets of 5 cards.&nbsp; This means that the magician
+        computes a set of 5 cards from an ordered collection of 4, and
+        thereby deduces the 5th card.&nbsp; A strategy can be easily
+        computable in the magician’s head for a performance, but in
+        principle it is no more or less than looking up a value in a big
+        table. </p>
+      <p>In the case of 52 cards, there are C(52, 4) * 4! ways to order
+        4 cards, and C(52, 5) ways to choose 5 unordered cards.&nbsp; A
+        strategy for 52 cards is a table of length C(52, 4) * 4!
+        containing entries from the C(52, 5) sets of 5 cards.&nbsp; A
+        single dimensional array is a good enough data structure. </p>
+      <p>Note that although the decoding is unique, the encoding is
+        not.&nbsp; Given a set of five cards there may be a number of
+        ordered sets of four that the accomplice might choose, each of
+        which of course would decode back to the original five.&nbsp;
+        This is like the simple case we did before with only 28
+        cards.&nbsp; The domain of the function is larger than range, so
+        although the function is onto, it is not 1-1.&nbsp; That is, the
+        inverse is not a function. </p>
+      <p>Note that when the deck has exactly 124 cards, then C(124, 4) *
+        4! equals C(124, 5).&nbsp; Therefore, any successful function
+        will be one-one and onto, so both the encoding and decoding
+        would be unique. </p>
+      <p>When the number of cards becomes greater, no strategy is
+        possible.&nbsp; In this case, we have more sets of 5 cards than
+        ordered subsets of 4.&nbsp; Hence if a strategy were possible,
+        then by the pigeonhole principle, there would exist two sets of
+        five cards, for the same ordered subset of four cards.&nbsp; But
+        if that is the case, then given a particular ordering of 4
+        cards, the magician could not possibly determine which 5-card
+        set it corresponded to, and hence never be able to recover the
+        hidden card.</p>
+    </blockquote>
+    <h3> Can we make a strategy that works for more than 52 cards?</h3>
+    <blockquote>The discouraging thing is that our working strategy
+      seems to have no slack at all.&nbsp; We divide the deck into
+      exactly four groups to guarantee the duplicate suit, and choose
+      the first card and hidden card to get the number of possible
+      hidden cards down to six.&nbsp; Then we have six pieces of
+      information left (three ordered cards) which we can use to
+      identify the hidden card – just enough.&nbsp; It seems unlikely
+      that we could extend our strategy to work for 124 cards.
+      <p>Nevertheless, we will explore this possibility by considering
+        simpler versions of the trick and writing some programs.&nbsp;
+        Let’s think like engineers, and look at our boundary conditions,
+        consider special cases, and the extreme cases.</p>
+    </blockquote>
+    <h3> Extending Our Working Strategy to Other Cases</h3>
+    Lower Bounds on the Number of Cards Possible – Based on Our Working
+    Strategy
+    <ol>
+      <li>If we do the trick by letting the person choose 4 cards and
+        the accomplice shows an ordered subset of three of them, then
+        what is the maximum number of cards for which our working
+        strategy works?&nbsp; Note: You should think of the deck as
+        having three suits.</li>
+      <li>Same question for 3 cards?&nbsp; 2 cards?</li>
+      <li>Let’s go in the other direction.&nbsp; If we let the person
+        choose 6 cards and the accomplice shows an ordered subset of 5,
+        then how large a deck can our working strategy handle?</li>
+      <li>Generalize your results above for the case where n is the
+        number of cards chosen, and the accomplice chooses an ordered
+        subset of <i>n</i>-1.</li>
+    </ol>
+    <h3> Extending Our Combinatorial Arguments to Other Cases</h3>
+    Upper Bounds on the Number of Cards – Based on a Combinatorial Idea
+    <ol start="5">
+      <li>The upper bound for <i>n</i> = 5 is 124 cards.&nbsp; What are
+        the upper bounds for <i>n</i> = 2, 3, 4?</li>
+      <li>Write a formula for the upper bound <i>U</i> in terms of <i>n</i>.</li>
+      <li>Write formulas for the number of ways to choose <i>n</i>
+        cards from <i>U</i>, and for the number of ways to order <i>n</i>-1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        cards from <i>U</i>.&nbsp; Prove that these are equal.<br>
+      </li>
+    </ol>
+    <h3> Counting the Huge Number of Possible Strategies</h3>
+    Now let’s analyze the possibility of other strategies.&nbsp; In
+    practice, a strategy needs to be easily decodable, but theoretically
+    a strategy is no more or less than a list of what the accomplice
+    should do in every possible situation.
+    <ol start="8">
+      <li>Assume we are using the largest size deck of cards
+        possible.&nbsp; Let<i> n</i> be the number of cards chosen,
+        where the accomplice chooses an ordered subset of <i>n</i>-1.&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Calculate formulas in terms of <i>n</i>, for:</li>
+    </ol>
+    <ul start="7">
+      <ul start="7">
+        <li>The number of ways the contestant can choose his cards.</li>
+        <li>The number of different permutations available to the
+          accomplice for each of the contestant’s choices.&nbsp; (For <i>n
+          </i>= 5, there are 120 possibilities).</li>
+        <li>The number of different possible <i>tables</i>.&nbsp; A<i>
+            table</i> is a list of permutations (each length <i>n</i>-1),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          one permutation for each of the possible sets of <i>n</i>
+          cards in the contestant’s hand.&nbsp; (For <i>n </i>= 5,
+          this equals 120<sup>225150024</sup>).</li>
+      </ul>
+    </ul>
+    <h3> Constructing New and Better Strategies</h3>
+    <blockquote>A table is a <i>strategy</i> whenever it contains no
+      duplicates.&nbsp; If there was a duplicate then the magician would
+      have no way to know which of the two different hidden cards to
+      decode.&nbsp; Based on the numbers in problem 7, you can see how
+      completely hopeless it is to search for a strategy by trying all
+      possible tables.&nbsp; For example, consider <i>n</i> = 5 where
+      the deck has 124 cards.&nbsp; Assuming we had a super-futuristic
+      computer that takes only 1 billionth of a second to generate a
+      whole table and check it for duplicates, it would still take more
+      than 10<sup>450000000</sup> centuries to try all possible
+      tables.&nbsp; Even for <i>n </i>= 3 and a deck size of 8, there
+      are 6<sup>56</sup> tables to try.&nbsp; With the same assumptions,
+      this would only take about 1.1958 * 10<sup>25</sup> centuries.</blockquote>
+    <h3> Working with Simpler Cases to Avoid the Combinatorial Explosion</h3>
+    <blockquote>We are under the weight of a heavy combinatorial
+      explosion.&nbsp; Nevertheless, working with smaller cases, may
+      still shed some light on the problem.&nbsp; We will work with <i>n
+      </i>= 3, and deck sizes of 6, 7, and 8.&nbsp;&nbsp; For <i>n </i>=
+      3, our working strategy can be used to fill a table for a 6-card
+      deck.&nbsp; Recall that in problem 2 you calculated that for&nbsp;
+      <i>n = </i>3, our working strategy works with at most 6 cards
+      using two suits.&nbsp; Assume that odd numbers (i.e. 1, 3, and 5)
+      are one suit, and even numbers (i.e. 2, 4, and 6) are the other
+      suit.&nbsp; The table starts with 123, 124, 125, and ends with ...
+      456.&nbsp; You must fill each entry with an ordered pair from the
+      triple of that entry. <br>
+      <br>
+      &nbsp;For example, given the triple 123, there are two odd
+      numbers.&nbsp; Ralph will show 1-2, where the 1 indicates the odd
+      suit, and the 2 is the single permutation of one digit.&nbsp; Shai
+      would add one odd card to 1, getting 3 as the missing card.&nbsp;
+      Notice that when there are three cards all of the same suit, then
+      Ralph has more than one option in what pairs to display, and I
+      should be able to decode any of them.&nbsp; This reveals why the
+      working strategy is not very efficient.&nbsp; In an optimal
+      strategy, (which could work for up to 8 cards), Ralph's decision
+      would be unique. </blockquote>
+    <b>Program/Exercise 3.</b>&nbsp; <br>
+    <blockquote>a.&nbsp; Write a program to fill in the table of 20 (6
+      choose 3) slots (123, 124, 125, ... , 456)&nbsp; for six numbers <i>using
+
+
+
+
+
+
+        our working strategy</i>.&nbsp;&nbsp; If you prefer, you can do
+      this by hand.&nbsp; <br>
+    </blockquote>
+    <blockquote>b.&nbsp; If we try to use our working strategy for a
+      deck of 7 cards, verify that the strategy is unsuccessful.&nbsp;
+      (Hint:&nbsp; it fails after 123, 124, 125).&nbsp; Fill in the
+      table for 7 cards successfully yourself by hand, using any
+      strategy that works. </blockquote>
+    <p><b>Programs 4-5.</b>&nbsp; Write a program using depth first
+      search that searches for a strategy for <i>n = </i>3 and a deck
+      of 8 cards, until you generate a legal table.&nbsp; <br>
+    </p>
+    <blockquote>
+      <p>This strategy could be printed as a cheat sheet for the
+        magician and his accomplice.&nbsp; Recall that a legal strategy
+        is a table where every ordered set appears at most once.&nbsp;
+        For every set {a, b, c} you should try ordered pairs in some
+        fixed order, say (ab, ac, bc, ba, ca, cb).&nbsp; For each pair
+        in order:&nbsp; if it has not been used in another place in the
+        table then use it for entry {a, b, c}. If it has been used
+        elsewhere, then go on to the next pair.&nbsp; </p>
+    </blockquote>
+    <blockquote>
+      <p>There are 6 pairs, so there are 6! = 720 possible orderings of
+        which (ab, ac, bc, ba, ca, cb) is only one.&nbsp; Design your
+        program so that this order could be easily changed.&nbsp; That
+        will make the next program easy to do.&nbsp;&nbsp; </p>
+      Note, that your program, due to massive backtracking, <i>may </i>take
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      a very long time.&nbsp;&nbsp; In fact, with the ordering I
+      suggested above, (ab, ac, bc, ba, ca, cb), you should expect to
+      see your program hang up for hours in the large search
+      space.&nbsp; Nobody knows what makes one ordering backtrack and
+      another sail through.&nbsp; There may be some elegant mathematical
+      theorem that predicts which ordering finds a clean 1-1 function,
+      but no one has yet discovered such a theorem. Meanwhile, your
+      program can check empirically.&nbsp; <br>
+      <br>
+      It is known that there are orderings that succeed in finding a
+      strategy, without ever having to backtrack at all.&nbsp; That
+      means they take 56 steps rather than the worst case 6<sup>56 </sup>steps!&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      One such "fast" ordering is (ba, ab, ca, ac, cb, bc).&nbsp; Note
+      that this ordering comes from generating the permutations of
+      {a,b,c} in reverse alphabetical order:&nbsp; cba, cab, bca, bac,
+      acb, abc, and then deleting the first character, giving the list
+      (ba, ab, ca, ac, cb, bc). <br>
+    </blockquote>
+    <blockquote> </blockquote>
+    <b>Programs 4-5.</b>&nbsp; Try your program with ordering (ba, ab,
+    ca, ac, cb, bc), and print out the results for <i>n</i> = 3 and an
+    8 card deck. Try some other orderings like (ba, ab, ca, ac, bc, cb),
+    and report your results. Try to find other orderings that succeed,
+    and others that fail (or take too long to succeed).&nbsp; Compare
+    the strategies for each success to see if they are different.<br>
+    <br>
+    Hints for Programs 4-5:<br>
+    <div style="margin-left: 40px;"><br>
+      Here is some help for programs 4-5.&nbsp; The program uses a
+      structure exactly like you use in your backtracking programs in
+      data structures -- also known as depth first search. <br>
+      <br>
+      A depth first search method for programs 4-5 with a structure
+      exactly like you use in data structures for backtracking looks
+      something like this: <br>
+      <br>
+      Boolean findstrategy(i)&nbsp; // fills an array with pairs from
+      index i through 55 <br>
+      <br>
+      // Here you can increment a global counter to keep track of the
+      extent of the backtracking<br>
+      //&nbsp; You can kill your program if the counter goes over
+      10,000,000<br>
+      // And then you can print out the array that you filled up until
+      then.<br>
+      <br>
+      if i==56 then return true; // you filled up 0 through 55 so you
+      are done <br>
+      <br>
+      Let xyz be the triple in slot i; <br>
+      for j =1 to 6 <br>
+      {&nbsp; Try the next ordered pair from the triple xyz;&nbsp;&nbsp;
+      Call this a_b; <br>
+      &nbsp;&nbsp;&nbsp; If a_b has not yet been used, then <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {&nbsp;&nbsp; assign a_b to slot i;&nbsp; remember that a_b has
+      been used&nbsp; // Use a separate Boolean array ; <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      if findstrategy(i+1) return true; <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // if false, then the call is backtracking and we continue in the
+      loop to the next pair <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      remember that a_b is no longer being used; <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      } <br>
+      &nbsp;} <br>
+      &nbsp;return false;&nbsp; //&nbsp; you tried all 6 pairs and
+      failed with all of them, so backtrack <br>
+      <br>
+      You should demonstrate findstrategy(0) to me at least twice: once
+      for a set of 6 pairs that does not backtrack and once for one that
+      does backtrack.&nbsp; In your report, you should try and report
+      some additional orders.&nbsp; There are 6! = 720 orders in
+      all.&nbsp; You should print a solution if an ordering succeeds in
+      a reasonable amount of time, else you can stop your program and
+      save your machine from burning up.&nbsp; For every set that
+      succeeds, you should print how many times you needed to try a new
+      pair in order to find a solution.&nbsp; For no backtracking, this
+      is just 56.&nbsp; For backtracking, it will range from 56 to
+      6^56.&nbsp; You can kill your program if the backtracking counter
+      exceeds some huge number, say&nbsp; 10,000,000, and you can dump
+      the current array when you do.<br>
+      <br>
+    </div>
+    <h3>A Practical, Intuitive, and Efficiently Computable Method to
+      Achieve the Upper Bound</h3>
+    <blockquote>
+      <p>Trying to modify programs 4-5 for <i>n</i> = 5 is not useful
+        or practical. The table will be too big (C(124, 5) entries) to
+        print, and the computation of the entries will be slower.&nbsp;
+        Furthermore, it is not obvious which ordering of 4-card
+        permutations to use to avoid backtracking. &nbsp; Rather than
+        try to generalize programs 4-5, and fill in a complete chart,
+        you will write a program that given a set of 5 cards from a deck
+        of 124, calculates the ordered subset of 4 cards, and vice
+        versa.&nbsp; This means you must figure out a way to compute the
+        entry of a particular slot in the table efficiently in order to
+        perform the trick with 124 cards.&nbsp; With your new program,
+        you can have someone choose five numbers at random between 1 and
+        124, and you and your accomplice will both use the
+        program.&nbsp; Your program should calculate what ordered set of
+        four cards to show the magician.&nbsp; It should also work
+        backwards, and tell the magician what is the secret (fifth) card
+        given an ordered set of four cards.</p>
+    </blockquote>
+    <blockquote>In class, we taught you an intuitive and efficiently
+      computable method to do the trick with the maximum number of
+      cards.&nbsp; The trick uses modulo arithmetic and
+      permutations.&nbsp; For <i>n</i>=3 and an 8 card deck, it
+      produces a different strategy than the one in the table computed
+      by program 5.&nbsp; Unfortunately,&nbsp; programs 4-5 will not
+      work for the 5-card case because 124 choose 5 is too big an array
+      to fill out and store.&nbsp; That is, you cannot fill out the
+      choices for all sets of 5 cards in advance.&nbsp; However, the
+      intuitive strategy will work.&nbsp; The intuitive strategy, given
+      <i>n</i> cards, calculates "on the fly" which ordered <i>n</i> -1
+      cards to use.&nbsp; <br>
+    </blockquote>
+    <b>Program 6.&nbsp; </b>Write a program to implement the intuitive
+    practical method for <i>n</i> = 3, and print out the resulting 56
+    entry table.&nbsp; <br>
+    <br>
+    <span style="font-weight: bold;">Program 7.</span>&nbsp; Write a
+    program that implements this intuitive method for <i>n</i> = 5 and
+    124 cards.&nbsp; You should <span style="font-style: italic;">not</span>
+    try to print out the whole huge table!&nbsp; &nbsp; It is
+    impossible!&nbsp; <br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp; Instead, you should allow the magician and
+    his assistant to do the trick with 124 cards by allowing two
+    options:<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; a.&nbsp; The user inputs five numbers, and the
+    program returns an ordered subset of four numbers.<br>
+    <div style="margin-left: 80px;">You can do this program by looking
+      at the 5 cards, determining the card to be hidden.&nbsp; Loop
+      through the 124 cards and store the possible candidates in an
+      array (there are 24 of these, including the hidden card.&nbsp;
+      Look up the index of the hidden card in the array and find the
+      permutation of that index (as in program 1).&nbsp; Use that
+      permutation to order the 4 non-hidden cards.&nbsp; For example,
+      given the 5 numbers 23, 27, 59, 87, and 93.&nbsp; You would hide
+      93, and since 93 is the 18th of the possible cards that could be
+      hidden (see power point link below), you would exhibit the 18th
+      permutation of the remaining 4 numbers, namely 59, 87, 27, 23.<br>
+    </div>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp; b.&nbsp; The user inputs an ordered set of
+    4 cards, and the program returns the missing fifth card.<br>
+    <div style="margin-left: 80px;">You can do this by looping through
+      the 124 cards and determining which 24 cards can be the missing
+      card.&nbsp;&nbsp; Store these cards in an array.&nbsp; Then
+      determine which permutation is indicated by the ordering of the
+      cards.&nbsp; Use the number of the permutation to pull out the
+      hidden card from the array.<br>
+    </div>
+    <p><b>Epilogue:&nbsp; </b>There is a very elegant proof, using
+      Hall’s Theorem about perfect matchings on bipartite graphs,
+      showing that there must exist a strategy for the maximal size
+      deck.&nbsp; Unfortunately, this proof is completely
+      non-constructive, so it does not help us practically.&nbsp; You
+      can learn more about this proof and about the intuitive way to
+      actually perform the trick with 124 cards in this <a href="http://web.stonehill.edu/compsci/Shai_papers/cardTrick-Primus-Final-Edit.pdf">paper</a>
+      and in this <a href="http://web.stonehill.edu/compsci/Japan.htm">power point presentation.</a>
+      <br>
+      &nbsp; </p>
+    <p></p>
+    <hr><br>
+    <a href="http://web.stonehill.edu/compsci/LC/homepage.htm">Back to LC homepage</a>
+  
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
