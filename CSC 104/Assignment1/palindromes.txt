@@ -1,0 +1,6 @@
+Too bad I hid a boot.--> Palindrome
+Madam, I'm Adam.--> Palindrome
+What is this all about?--> Not a Palindrome
+Bob!--> Palindrome
+A man, a plan, a canal, Suez.--> Not a Palindrome
+Lisa Bonet ate no basil.--> Palindrome

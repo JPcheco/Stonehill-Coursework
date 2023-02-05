@@ -1,0 +1,15 @@
+G Warcraft 4.50 1 12 Washington,George
+G Age-Of-Empires 4.50 0 10 Adams,John
+G Battlestar-Galactica 4.50 1 12 Jefferson,Thomas
+G Gettysburg 4.50 0 16 Rose,Pete
+G Pirates 4.50 1 10 Jones,Joe
+M Star-Wars 223 3.00 PG13 D 1 Yeager,Eren
+M Close-Encounters 190 2.00 R B 1 Kanaki,Ken
+M No-Way-Out 187 2.00 R B 0 Simpson,Bart
+M Gone-With-The-Wind 220 2.00 PG D 0 Smith,Mary
+M Excaliber 182 2.00 R D 1 Evens,Chris
+M Goldfinger 227 3.00 R B 0 Bond,James
+M Moonraker 187 3.00 R D 1 Stark,Tony
+M Diamonds-Are_forever 165 3.00 PG13 D 0 Ronald,Reagan
+M Knives-Out 123 2.00 R B 1 Parker,Peter
+M Popeye 104 2.00 G D 1 Oil,Olive
